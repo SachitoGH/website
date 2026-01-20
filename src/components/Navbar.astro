@@ -7,6 +7,7 @@ const links = [
   { name: 'Surf House', href: '/surf-house' },
 ];
 ---
+
 <nav class="bg-sand/90 backdrop-blur-md fixed w-full z-50 border-b border-stone-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-20">
@@ -24,7 +25,36 @@ const links = [
         Réserver
       </a>
 
-      <div class="md:hidden text-ocean">Menu</div>
+      <button id="mobile-menu-btn" class="md:hidden text-ocean font-bold p-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden bg-sand border-b border-stone-200 absolute w-full left-0 top-20 shadow-lg">
+    <div class="flex flex-col p-4 space-y-4 text-center">
+      {links.map(link => (
+        <a href={link.href} class="text-dark text-lg font-medium hover:text-terra py-2 border-b border-stone-100 last:border-0">
+          {link.name}
+        </a>
+      ))}
+      <a href="#book" class="bg-ocean text-white px-5 py-3 rounded-xl mt-2 inline-block w-full">
+        Réserver maintenant
+      </a>
     </div>
   </div>
 </nav>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      // Bascule la classe 'hidden' pour afficher/cacher le menu
+      menu.classList.toggle('hidden');
+    });
+  }
+</script>
