@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { offerings } from '../data/offerings';
+
+export function getStaticPaths() {
+  return [
+    { params: { category: 'surf' } },
+    { params: { category: 'trips' } },
+    { params: { category: 'sejours' } },
+    { params: { category: 'experiences' } },
+  ];
+}
+
+const { category } = Astro.params;
+
+// Filtrer les offres pour cette page
+const items = offerings.filter(item => item.category === category);
+const title = category.charAt(0).toUpperCase() + category.slice(1);
+---
+
+<Layout title={title}>
+  <div class="bg-ocean text-sand py-20 px-4 text-center">
+    <h1 class="text-4xl md:text-5xl font-serif font-bold">{title}</h1>
+    <p class="mt-4 opacity-80 max-w-xl mx-auto">Explorez nos formules dédiées à {category}.</p>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 py-20">
+    {items.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {items.map(item => (
+          <Card
+            title={item.title}
+            price={item.price}
+            image={item.image}
+            href={`/detail/${item.id}`}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-center text-stone-500">Aucune offre disponible pour le moment.</p>
+    )}
+  </div>
+</Layout>

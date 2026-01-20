@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+// Placeholders
+const gallery = [
+    'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800', // Room
+    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800', // Pool/Vibe
+    'https://images.unsplash.com/photo-1512958542489-34dbef5803ca?w=800', // Moroccan tiles
+    'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800'  // Landscape
+];
+---
+
+<Layout title="Surf House">
+  <div class="pt-10 pb-20 max-w-7xl mx-auto px-4">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h1 class="text-5xl font-serif font-bold text-ocean mb-6">La Surf House</h1>
+      <p class="text-xl text-stone-600">
+        Un havre de paix face à l'océan. Architecture traditionnelle berbère mêlée au confort moderne.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
+      {gallery.map((img, index) => (
+        <div class={`rounded-2xl overflow-hidden h-64 ${index === 0 ? 'md:col-span-2 md:row-span-2 md:h-full' : ''}`}>
+          <img src={img} class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Surf house ambience" />
+        </div>
+      ))}
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+            <h2 class="text-3xl font-serif text-ocean mb-4">L'Auberge Principale</h2>
+            <p class="text-stone-600 mb-6">
+                Chambres doubles et dortoirs cosy. Grand salon commun, terrasse sur le toit pour les cours de yoga et cuisine ouverte.
+                Vivez en communauté avec d'autres passionnés.
+            </p>
+            <ul class="space-y-2 mb-8 text-terra font-medium">
+                <li>✓ Wifi Fibre</li>
+                <li>✓ Petit-déjeuner Bio</li>
+                <li>✓ Rangement planches</li>
+            </ul>
+        </div>
+        <div class="bg-sand p-8 rounded-2xl border border-stone-200">
+            <h3 class="text-xl font-bold mb-4">Partenaires Hébergement</h3>
+            <p class="text-sm text-stone-500 mb-4">Pour plus d'intimité, nous travaillons avec des riads voisins.</p>
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between">
+                    <span>Dar Alizés (Luxe)</span>
+                    <span class="text-xs bg-stone-100 px-2 py-1 rounded">À 2 min</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between">
+                    <span>Blue Kaouki (Apparts)</span>
+                    <span class="text-xs bg-stone-100 px-2 py-1 rounded">À 5 min</span>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</Layout>

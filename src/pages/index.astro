@@ -1,11 +1,57 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { offerings } from '../data/offerings';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// On prend juste 3 offres pour la home
+const featured = offerings.slice(0, 3);
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Accueil">
+  <section class="relative h-[80vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?q=80&w=2000&auto=format&fit=crop"
+        class="w-full h-full object-cover"
+        alt="Sidi Kaouki Surf"
+      />
+      <div class="absolute inset-0 bg-ocean/30 mix-blend-multiply"></div>
+    </div>
+
+    <div class="relative z-10 text-center text-white px-4">
+      <p class="text-lg md:text-xl uppercase tracking-widest mb-4 font-medium">Maroc • Sidi Kaouki</p>
+      <h1 class="text-5xl md:text-7xl font-serif font-bold mb-8">L'esprit <br/> de l'Océan</h1>
+      <a href="#book" class="bg-terra hover:bg-terra/90 text-white px-8 py-4 rounded-full text-lg font-medium transition duration-300 inline-block">
+        Réserver votre session
+      </a>
+    </div>
+  </section>
+
+  <section class="py-20 max-w-4xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-serif text-ocean mb-6">Bienvenue à la maison</h2>
+    <p class="text-lg text-stone-600 leading-relaxed">
+      Située à deux pas des vagues sauvages de Sidi Kaouki, notre école et surf house vous accueille dans une ambiance authentique.
+      Ici, le temps s'arrête pour laisser place au bruit des vagues et à la chaleur de l'hospitalité marocaine.
+    </p>
+  </section>
+
+  <section class="py-10 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between items-end mb-12">
+        <h2 class="text-3xl font-serif text-dark">Nos Formules</h2>
+        <a href="/surf" class="text-ocean font-medium hover:text-terra">Tout voir &rarr;</a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {featured.map(item => (
+          <Card
+            title={item.title}
+            price={item.price}
+            image={item.image}
+            href={`/detail/${item.id}`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
 </Layout>

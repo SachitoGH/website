@@ -1,0 +1,30 @@
+---
+const links = [
+  { name: 'Surf', href: '/surf' },
+  { name: 'Trips', href: '/trips' },
+  { name: 'Séjours', href: '/sejours' },
+  { name: 'Expériences', href: '/experiences' },
+  { name: 'Surf House', href: '/surf-house' },
+];
+---
+<nav class="bg-sand/90 backdrop-blur-md fixed w-full z-50 border-b border-stone-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <a href="/" class="text-2xl font-serif font-bold text-ocean">SIDI SURF.</a>
+
+      <div class="hidden md:flex space-x-8">
+        {links.map(link => (
+          <a href={link.href} class="text-dark hover:text-terra font-medium transition-colors">
+            {link.name}
+          </a>
+        ))}
+      </div>
+
+      <a href="#book" class="hidden md:block bg-ocean text-white px-5 py-2 rounded-full hover:bg-ocean/90 transition">
+        Réserver
+      </a>
+
+      <div class="md:hidden text-ocean">Menu</div>
+    </div>
+  </div>
+</nav>
