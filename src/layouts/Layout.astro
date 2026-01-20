@@ -1,6 +1,7 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import BookingModal from '../components/BookingModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -28,5 +29,6 @@ const { title } = Astro.props;
 			<slot />
 		</main>
     <Footer />
+    <BookingModal />
 	</body>
 </html>

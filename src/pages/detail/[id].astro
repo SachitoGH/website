@@ -65,8 +65,8 @@ const { offer } = Astro.props;
         </div>
 
         <button
-          onclick="alert('Placeholder: Ouverture du formulaire de réservation...')"
-          class="w-full bg-ocean hover:bg-ocean/90 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-ocean/30"
+          data-formula={offer.category}
+          class="js-open-booking w-full bg-ocean hover:bg-ocean/90 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-ocean/30"
         >
           Réserver maintenant
         </button>

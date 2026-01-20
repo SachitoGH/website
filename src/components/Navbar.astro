@@ -29,7 +29,7 @@ const links = [
             ))}
         </div>
 
-        <a href="#book" class="bg-terra text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs shadow-lg hover:bg-terra/80 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 transform">
+        <a href="#book" data-formula="general" class="js-open-booking bg-terra text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs shadow-lg hover:bg-terra/80 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 transform">
           Réserver
         </a>
       </div>
@@ -52,7 +52,7 @@ const links = [
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden fixed inset-0 bg-[#E8E4D9] z-40 flex flex-col items-center justify-start pt-36 h-screen w-full transition-opacity duration-300">
+  <div id="mobile-menu" class="fixed inset-0 bg-[#E8E4D9] z-40 flex flex-col items-center justify-start pt-36 h-screen w-full invisible opacity-0 -translate-y-4 transition-all duration-500 ease-in-out">
     <div class="flex flex-col space-y-8 text-center">
         {links.map(link => (
           <a href={link.href} class="text-3xl font-serif text-dark hover:text-terra transition-colors block font-medium">
@@ -61,7 +61,7 @@ const links = [
         ))}
 
         <div class="pt-8">
-          <a href="#book" class="bg-terra text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-lg shadow-lg inline-block">
+          <a href="#book" data-formula="general" class="js-open-booking bg-terra text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-lg shadow-lg inline-block">
             Réserver
           </a>
         </div>
@@ -70,34 +70,42 @@ const links = [
 </nav>
 
 <script>
-  // On s'assure que le DOM est chargé (corrige l'erreur "Unexpected end of file")
   document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
     const body = document.body;
 
-    if (btn && menu) {
-      btn.addEventListener('click', () => {
-        // 1. Basculer la classe 'is-open' sur le bouton pour déclencher l'animation CSS
-        btn.classList.toggle('is-open');
+    // Fonction pour basculer l'état du menu
+    const toggleMenu = () => {
+        // 1. Animation du bouton
+        btn?.classList.toggle('is-open');
 
-        // 2. Basculer la visibilité du menu
-        menu.classList.toggle('hidden');
+        // 2. Animation du menu (Fade in + Slide down)
+        // On retire les classes qui cachent le menu.
+        // Par défaut, sans ces classes, il devient visible, opaque et bien positionné.
+        menu?.classList.toggle('invisible');
+        menu?.classList.toggle('opacity-0');
+        menu?.classList.toggle('-translate-y-4');
 
         // 3. Bloquer le scroll
-        if (!menu.classList.contains('hidden')) {
+        // On vérifie si le menu est visible (donc ne contient plus la classe 'invisible')
+        if (!menu?.classList.contains('invisible')) {
           body.style.overflow = 'hidden';
         } else {
           body.style.overflow = 'auto';
         }
-      });
+    };
+
+    if (btn && menu) {
+      btn.addEventListener('click', toggleMenu);
 
       // Fermer le menu au clic sur un lien
       menu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-          btn.classList.remove('is-open'); // Réinitialise l'animation du bouton
-          menu.classList.add('hidden');
-          body.style.overflow = 'auto';
+            // On force la fermeture
+            btn.classList.remove('is-open');
+            menu.classList.add('invisible', 'opacity-0', '-translate-y-4');
+            body.style.overflow = 'auto';
         });
       });
     }

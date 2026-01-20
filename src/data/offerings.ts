@@ -49,15 +49,16 @@ export const offerings: Offering[] = [
     level: 'Tous niveaux'
   },
   {
-    id: 'exp-diner',
+    id: 'exp-sandboarding',
     category: 'experiences',
-    title: 'Dîner Berbère',
-    price: '25€',
-    image: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&w=800&q=80',
-    shortDesc: 'Cuisine traditionnelle locale.',
-    fullDesc: 'Partagez un couscous ou un tajine traditionnel préparé avec amour, sur notre terrasse vue mer au coucher du soleil.',
-    features: ['Repas complet', 'Thé à la menthe', 'Musique live'],
-    duration: 'Soirée',
-    level: 'Gourmand'
+    title: 'Surf des Dunes',
+    price: '20€',
+    // Image de sandboarding / dunes
+    image: 'https://plus.unsplash.com/premium_photo-1722112701073-6fef5a7ddf68?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    shortDesc: 'Glissez sur les dunes dorées face à l\'océan.',
+    fullDesc: 'Une expérience incontournable à Sidi Kaouki. Quand les vagues se calment ou pour varier les plaisirs, grimpez sur les grandes dunes et dévalez la pente face au coucher du soleil. Fous rires et photos incroyables garantis.',
+    features: ['Planche incluse', 'Spot vue mer', 'Coucher de soleil'],
+    duration: '2h',
+    level: 'Fun / Tous niveaux'
   }
 ];
