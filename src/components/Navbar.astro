@@ -8,53 +8,98 @@ const links = [
 ];
 ---
 
-<nav class="bg-sand/90 backdrop-blur-md fixed w-full z-50 border-b border-stone-200">
+<nav class="bg-sand/95 backdrop-blur-md fixed w-full z-50 border-b border-stone-200/50 shadow-sm transition-all duration-300 py-2">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-20">
-      <a href="/" class="text-2xl font-serif font-bold text-ocean">SIDI SURF.</a>
+    <div class="flex justify-between items-center relative z-50">
 
-      <div class="hidden md:flex space-x-8">
-        {links.map(link => (
-          <a href={link.href} class="text-dark hover:text-terra font-medium transition-colors">
-            {link.name}
-          </a>
-        ))}
-      </div>
-
-      <a href="#book" class="hidden md:block bg-ocean text-white px-5 py-2 rounded-full hover:bg-ocean/90 transition">
-        Réserver
+      <a href="/" class="flex items-center shrink-0">
+        <img
+            src="/logo-dark.png"
+            alt="Global Surf School Sidi Kaouki"
+            class="h-16 md:h-24 w-auto object-contain hover:opacity-90 transition-opacity"
+        />
       </a>
 
-      <button id="mobile-menu-btn" class="md:hidden text-ocean font-bold p-2">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-      </button>
+      <div class="hidden md:flex items-center gap-8">
+        <div class="flex space-x-6">
+            {links.map(link => (
+            <a href={link.href} class="text-dark hover:text-ocean font-bold text-sm uppercase tracking-widest transition-colors py-2">
+                {link.name}
+            </a>
+            ))}
+        </div>
+
+        <a href="#book" class="bg-terra text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs shadow-lg hover:bg-terra/80 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 transform">
+          Réserver
+        </a>
+      </div>
+
+      <div class="md:hidden flex items-center">
+         <button id="menu-toggle" class="group relative text-dark p-2 hover:bg-dark/5 rounded-full transition focus:outline-none w-12 h-12 flex items-center justify-center">
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                 class="w-8 h-8 transition-all duration-300 ease-in-out group-[.is-open]:opacity-0 group-[.is-open]:rotate-90 scale-100 absolute">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                 class="w-8 h-8 transition-all duration-300 ease-in-out opacity-0 -rotate-90 group-[.is-open]:opacity-100 group-[.is-open]:rotate-0 scale-100 absolute">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+
+         </button>
+      </div>
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden md:hidden bg-sand border-b border-stone-200 absolute w-full left-0 top-20 shadow-lg">
-    <div class="flex flex-col p-4 space-y-4 text-center">
-      {links.map(link => (
-        <a href={link.href} class="text-dark text-lg font-medium hover:text-terra py-2 border-b border-stone-100 last:border-0">
-          {link.name}
-        </a>
-      ))}
-      <a href="#book" class="bg-ocean text-white px-5 py-3 rounded-xl mt-2 inline-block w-full">
-        Réserver maintenant
-      </a>
+  <div id="mobile-menu" class="hidden fixed inset-0 bg-[#E8E4D9] z-40 flex flex-col items-center justify-start pt-36 h-screen w-full transition-opacity duration-300">
+    <div class="flex flex-col space-y-8 text-center">
+        {links.map(link => (
+          <a href={link.href} class="text-3xl font-serif text-dark hover:text-terra transition-colors block font-medium">
+              {link.name}
+          </a>
+        ))}
+
+        <div class="pt-8">
+          <a href="#book" class="bg-terra text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-lg shadow-lg inline-block">
+            Réserver
+          </a>
+        </div>
     </div>
   </div>
 </nav>
 
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
+  // On s'assure que le DOM est chargé (corrige l'erreur "Unexpected end of file")
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const body = document.body;
 
-  if (btn && menu) {
-    btn.addEventListener('click', () => {
-      // Bascule la classe 'hidden' pour afficher/cacher le menu
-      menu.classList.toggle('hidden');
-    });
-  }
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        // 1. Basculer la classe 'is-open' sur le bouton pour déclencher l'animation CSS
+        btn.classList.toggle('is-open');
+
+        // 2. Basculer la visibilité du menu
+        menu.classList.toggle('hidden');
+
+        // 3. Bloquer le scroll
+        if (!menu.classList.contains('hidden')) {
+          body.style.overflow = 'hidden';
+        } else {
+          body.style.overflow = 'auto';
+        }
+      });
+
+      // Fermer le menu au clic sur un lien
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          btn.classList.remove('is-open'); // Réinitialise l'animation du bouton
+          menu.classList.add('hidden');
+          body.style.overflow = 'auto';
+        });
+      });
+    }
+  });
 </script>

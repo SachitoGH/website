@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+  /* Définition de tes couleurs personnalisées directement ici */
+  --color-sand: #E8E4D9;
+  --color-ocean: #2A6F73;
+  --color-terra: #C87D63;
+  --color-dark: #3D3A35;
+  --color-light: #F9F8F4;
+
+  /* Définition de tes polices pour correspondre aux Google Fonts */
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Merriweather", serif;
+}
