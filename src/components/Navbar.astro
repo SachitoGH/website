@@ -5,12 +5,14 @@ const links = [
   { name: 'Séjours', href: '/sejours' },
   { name: 'Expériences', href: '/experiences' },
   { name: 'Surf House', href: '/surf-house' },
+  { name: 'À propos', href: '/about' },
 ];
 ---
 
 <nav class="bg-sand/95 backdrop-blur-md fixed w-full z-50 border-b border-stone-200/50 shadow-sm transition-all duration-300 py-2">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center relative z-50">
+
+    <div class="flex justify-between items-center gap-4 md:gap-8 relative z-50">
 
       <a href="/" class="flex items-center shrink-0">
         <img
@@ -20,33 +22,28 @@ const links = [
         />
       </a>
 
-      <div class="hidden md:flex items-center gap-8">
-        <div class="flex space-x-6">
+      <div class="hidden md:flex items-center gap-6">
+        <div class="flex space-x-4 lg:space-x-6">
             {links.map(link => (
-            <a href={link.href} class="text-dark hover:text-ocean font-bold text-sm uppercase tracking-widest transition-colors py-2">
+            <a href={link.href} class="text-dark hover:text-ocean font-bold text-xs lg:text-sm uppercase tracking-widest transition-colors py-2">
                 {link.name}
             </a>
             ))}
         </div>
 
-        <a href="#book" data-formula="general" class="js-open-booking bg-terra text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs shadow-lg hover:bg-terra/80 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 transform">
+        <a href="#book" data-formula="general" class="js-open-booking bg-terra text-white px-6 py-3 lg:px-8 rounded-full font-bold uppercase tracking-widest text-xs shadow-lg hover:bg-terra/80 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 transform">
           Réserver
         </a>
       </div>
 
       <div class="md:hidden flex items-center">
          <button id="menu-toggle" class="group relative text-dark p-2 hover:bg-dark/5 rounded-full transition focus:outline-none w-12 h-12 flex items-center justify-center">
-
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                 class="w-8 h-8 transition-all duration-300 ease-in-out group-[.is-open]:opacity-0 group-[.is-open]:rotate-90 scale-100 absolute">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 transition-all duration-300 ease-in-out group-[.is-open]:opacity-0 group-[.is-open]:rotate-90 scale-100 absolute">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
-
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                 class="w-8 h-8 transition-all duration-300 ease-in-out opacity-0 -rotate-90 group-[.is-open]:opacity-100 group-[.is-open]:rotate-0 scale-100 absolute">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 transition-all duration-300 ease-in-out opacity-0 -rotate-90 group-[.is-open]:opacity-100 group-[.is-open]:rotate-0 scale-100 absolute">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
-
          </button>
       </div>
     </div>
@@ -59,7 +56,6 @@ const links = [
               {link.name}
           </a>
         ))}
-
         <div class="pt-8">
           <a href="#book" data-formula="general" class="js-open-booking bg-terra text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-lg shadow-lg inline-block">
             Réserver
@@ -75,20 +71,11 @@ const links = [
     const menu = document.getElementById('mobile-menu');
     const body = document.body;
 
-    // Fonction pour basculer l'état du menu
     const toggleMenu = () => {
-        // 1. Animation du bouton
         btn?.classList.toggle('is-open');
-
-        // 2. Animation du menu (Fade in + Slide down)
-        // On retire les classes qui cachent le menu.
-        // Par défaut, sans ces classes, il devient visible, opaque et bien positionné.
         menu?.classList.toggle('invisible');
         menu?.classList.toggle('opacity-0');
         menu?.classList.toggle('-translate-y-4');
-
-        // 3. Bloquer le scroll
-        // On vérifie si le menu est visible (donc ne contient plus la classe 'invisible')
         if (!menu?.classList.contains('invisible')) {
           body.style.overflow = 'hidden';
         } else {
@@ -98,11 +85,8 @@ const links = [
 
     if (btn && menu) {
       btn.addEventListener('click', toggleMenu);
-
-      // Fermer le menu au clic sur un lien
       menu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-            // On force la fermeture
             btn.classList.remove('is-open');
             menu.classList.add('invisible', 'opacity-0', '-translate-y-4');
             body.style.overflow = 'auto';

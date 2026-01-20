@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import InstaFeed from '../components/InstaFeed.astro';
+import ReviewsWidget from '../components/ReviewsWidget.astro';
+import Team from '../components/Team.astro';
+---
+
+<Layout title="À propos">
+
+  <div class="pt-28 pb-4 px-6 bg-white text-center">
+    <h1 class="text-4xl md:text-5xl font-serif font-bold text-ocean">À propos de nous</h1>
+    <div class="w-12 h-1 bg-terra mx-auto mt-4 rounded-full"></div>
+  </div>
+
+  <section class="pt-8 pb-12 px-6 bg-white">
+    <div class="max-w-3xl mx-auto text-center">
+        <div>
+            <h2 class="text-2xl font-serif text-ocean mb-6">L'Esprit</h2>
+            <p class="text-lg text-stone-600 leading-relaxed font-light">
+                Nous avons créé Global Surf pour une raison simple : revenir à l'essence du surf.
+                Loin des foules, nous partageons une approche authentique, respectueuse de la culture locale et de l'océan.
+            </p>
+        </div>
+    </div>
+  </section>
+
+  <Team />
+
+  <div class="bg-sand/20 border-t border-stone-100/50">
+      <ReviewsWidget />
+  </div>
+
+  <InstaFeed />
+
+  <section class="py-6 px-4 bg-sand text-center">
+
+    <h2 class="text-2xl font-serif text-ocean mb-2">Nous contacter</h2>
+
+    <div class="space-y-1">
+        <a href="mailto:temp@gmail.com" class="block text-lg md:text-xl font-serif text-dark hover:text-terra transition-colors duration-300">
+            temp@gmail.com
+        </a>
+        <p class="text-xs font-bold uppercase tracking-widest text-terra opacity-80 pt-1">
+            Sidi Kaouki • Maroc
+        </p>
+    </div>
+  </section>
+
+</Layout>
