@@ -9,7 +9,7 @@ const links = [
 ];
 ---
 
-<nav id="navbar" class="bg-sand/70 backdrop-blur-lg fixed w-full z-50 border-b border-white/40 shadow-sm transition-all duration-300 py-2">
+<nav id="navbar" class="bg-sand/70 backdrop-blur-lg fixed w-full z-50 border-b border-white/40 shadow-sm transition-transform duration-300 py-2">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <div class="flex justify-between items-center gap-4 md:gap-8 relative z-50">
@@ -66,44 +66,69 @@ const links = [
 </nav>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('menu-toggle');
-    const menu = document.getElementById('mobile-menu');
-    const navbar = document.getElementById('navbar');
-    const body = document.body;
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const navbar = document.getElementById('navbar');
+  const body = document.body;
 
-    // Toggle menu mobile
-    const toggleMenu = () => {
-        btn?.classList.toggle('is-open');
-        menu?.classList.toggle('invisible');
-        menu?.classList.toggle('opacity-0');
-        menu?.classList.toggle('-translate-y-4');
-        body.style.overflow = menu?.classList.contains('invisible') ? 'auto' : 'hidden';
-    };
+  // -----------------------------
+  // Toggle menu mobile
+  // -----------------------------
+  const toggleMenu = () => {
+    btn?.classList.toggle('is-open');
+    menu?.classList.toggle('invisible');
+    menu?.classList.toggle('opacity-0');
+    menu?.classList.toggle('-translate-y-4');
+    body.style.overflow = menu?.classList.contains('invisible') ? 'auto' : 'hidden';
+  };
 
-    if (btn && menu) {
-      btn.addEventListener('click', toggleMenu);
-      menu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            btn.classList.remove('is-open');
-            menu.classList.add('invisible', 'opacity-0', '-translate-y-4');
-            body.style.overflow = 'auto';
-        });
+  if (btn && menu) {
+    btn.addEventListener('click', toggleMenu);
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        btn.classList.remove('is-open');
+        menu.classList.add('invisible', 'opacity-0', '-translate-y-4');
+        body.style.overflow = 'auto';
       });
-    }
+    });
+  }
 
-    // Smart header scroll behavior
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScroll > lastScroll && currentScroll > 100) {
-        // Scroll vers le bas -> cacher navbar
+  // -----------------------------
+  // Smart header scroll behavior
+  // -----------------------------
+  let lastScroll = 0;
+  const downThreshold = 10; // scroll down nécessaire pour cacher
+  const upThreshold = 1;    // scroll up nécessaire pour réafficher
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    const diff = currentScroll - lastScroll;
+
+    // Mobile uniquement
+    if (window.innerWidth < 768) {
+      if (diff > downThreshold && currentScroll > 50) {
+        // Scroll down -> cacher navbar
         navbar.style.transform = 'translateY(-100%)';
-      } else {
-        // Scroll vers le haut -> montrer navbar
+      } else if (diff < -upThreshold || currentScroll < 50) {
+        // Scroll up -> montrer immédiatement
         navbar.style.transform = 'translateY(0)';
       }
-      lastScroll = currentScroll <= 0 ? 0 : currentScroll; // Reset en haut
-    });
+    } else {
+      // Desktop -> sticky
+      navbar.style.transform = 'translateY(0)';
+    }
+
+    lastScroll = currentScroll <= 0 ? 0 : currentScroll;
   });
+
+  // -----------------------------
+  // Redimensionnement
+  // -----------------------------
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+      navbar.style.transform = 'translateY(0)';
+    }
+  });
+});
 </script>
