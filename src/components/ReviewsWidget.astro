@@ -1,13 +1,10 @@
 ---
 import { reviews } from '../data/reviews';
 
-// LOGIQUE : Mélanger et prendre 3 avis au hasard
-// On crée une copie du tableau [...reviews] pour ne pas modifier l'original, puis on trie aléatoirement
 const randomReviews = [...reviews]
     .sort(() => 0.5 - Math.random())
     .slice(0, 3);
 
-// Petite fonction helper pour afficher les étoiles
 const renderStars = (rating: number) => "★".repeat(rating);
 ---
 
@@ -43,7 +40,7 @@ const renderStars = (rating: number) => "★".repeat(rating);
                 <span>Voir sur TripAdvisor</span>
             </a>
 
-            <a href="https://www.google.com/search?client=firefox-b-d&hs=hYCp&sa=X&sca_esv=59623aa993e8ccae&biw=981&bih=918&aic=0&sxsrf=ANbL-n5OeEjJG5CCOFRUEBUn2KM10uzlhQ:1768945660181&q=GlobalSurfSidi+Kaouki+Avis&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2tjAxN7cwsjS3NDUxtLQ0MzSx2MDI-IpRyj0nPykxJ7i0KC04MyVTwTsxvzQ7U8GxLLN4ESseSQDPICCHVAAAAA&rldimm=3847782979541996148&tbm=lcl&hl=fr-BE&ved=2ahUKEwi-1M6NjJuSAxXvOfsDHQfnJ00Q9fQKegQIQxAG#lkt=LocalPoiReviews" target="_blank" class="inline-flex items-center justify-center gap-3 bg-white border border-stone-200 text-dark px-8 py-3 rounded-full font-bold hover:bg-stone-50 transition shadow-sm hover:shadow-md hover:-translate-y-1 min-w-[250px]">
+            <a href="https://www.google.com/maps/place/?q=place_id:ChIJZ3oQFriFrQ0RdBJlxDsSZjU" target="_blank" class="inline-flex items-center justify-center gap-3 bg-white border border-stone-200 text-dark px-8 py-3 rounded-full font-bold hover:bg-stone-50 transition shadow-sm hover:shadow-md hover:-translate-y-1 min-w-[250px]">
                 <span>Voir sur Google</span>
             </a>
         </div>
