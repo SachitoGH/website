@@ -1,4 +1,7 @@
 ---
+/* BookingModal.astro
+  Formulaire fonctionnel avec Web3Forms
+*/
 ---
 <div id="booking-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div class="fixed inset-0 bg-dark/60 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
@@ -21,49 +24,57 @@
                 </div>
 
                 <form id="booking-form" class="space-y-4">
+
+                    <input type="hidden" name="access_key" value="ebc4ca49-4599-46ba-a0bf-ea764c04c468">
+                    <input type="hidden" name="subject" value="Nouvelle Réservation - Global Surf">
+                    <input type="hidden" name="from_name" value="Site Web">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                     <div class="space-y-4">
                         <div>
                             <label for="name" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Nom complet</label>
-                            <input type="text" id="name" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400" placeholder="Ex: Sarah Martin" />
+                            <input type="text" name="name" id="name" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400" placeholder="Ex: Sarah Martin" />
                         </div>
                         <div>
                             <label for="email" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Email</label>
-                            <input type="email" id="email" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400" placeholder="Ex: sarah@email.com" />
+                            <input type="email" name="email" id="email" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400" placeholder="Ex: sarah@email.com" />
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label for="date" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Arrivée</label>
-                            <input type="date" id="date" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600" />
+                            <input type="date" name="date" id="date" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600" />
                         </div>
                         <div>
                             <label for="guests" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Voyageurs</label>
-                            <select id="guests" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600">
-                                <option>1 personne</option>
-                                <option>2 personnes</option>
-                                <option>3 personnes</option>
-                                <option>4+ groupe</option>
+                            <select name="guests" id="guests" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600">
+                                <option value="1 personne">1 personne</option>
+                                <option value="2 personnes">2 personnes</option>
+                                <option value="3 personnes">3 personnes</option>
+                                <option value="4+ groupe">4+ groupe</option>
                             </select>
                         </div>
                     </div>
 
                     <div>
                          <label for="interest" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Formule souhaitée</label>
-                         <select id="interest" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600">
+                         <select name="interest" id="interest" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600">
                             <option value="general">Je ne sais pas encore / Autre</option>
                             <option value="surf">Cours de Surf</option>
                             <option value="trips">Surf Trip / Guiding</option>
                             <option value="sejours">Séjour Complet</option>
-                  <option value="experiences">Expérience (Surf dune, camel ride...)</option>
+                            <option value="experiences">Expérience (Surf dune, camel ride...)</option>
                             <option value="housing">Hébergement seul</option>
                         </select>
                     </div>
 
                     <div>
                         <label for="message" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Message (Optionnel)</label>
-                        <textarea id="message" rows="3" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400 resize-none" placeholder="Niveau de surf, questions..."></textarea>
+                        <textarea name="message" id="message" rows="3" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400 resize-none" placeholder="Niveau de surf, questions..."></textarea>
                     </div>
+
+                    <div id="result" class="text-center text-sm mb-2 hidden"></div>
 
                     <button type="submit" class="w-full bg-terra text-white font-bold py-4 rounded-xl shadow-lg hover:bg-terra/90 hover:-translate-y-0.5 transition-all duration-300 mt-2">
                         Envoyer la demande
@@ -98,11 +109,13 @@
         const panel = document.getElementById('modal-panel');
         const closeBtn = document.getElementById('close-modal');
         const closeSuccessBtn = document.getElementById('close-success');
-        const form = document.getElementById('booking-form');
+        const form = document.getElementById('booking-form') as HTMLFormElement;
         const formState = document.getElementById('form-state');
         const successState = document.getElementById('success-state');
         const interestSelect = document.getElementById('interest') as HTMLSelectElement;
+        const result = document.getElementById('result');
 
+        // --- GESTION DE L'OUVERTURE / FERMETURE DU MODAL (Inchangé) ---
         window.openBookingModal = () => {
             if(!modal) return;
             modal.classList.remove('hidden');
@@ -122,9 +135,16 @@
 
             setTimeout(() => {
                 modal.classList.add('hidden');
-                formState.classList.remove('hidden');
-                successState.classList.add('hidden');
-                form.reset();
+                // On réinitialise l'état pour la prochaine fois
+                setTimeout(() => {
+                     formState.classList.remove('hidden');
+                     successState.classList.add('hidden');
+                     form.reset();
+                     if(result) {
+                        result.classList.add('hidden');
+                        result.innerText = '';
+                     }
+                }, 100);
             }, 300);
             document.body.style.overflow = 'auto';
         };
@@ -138,37 +158,79 @@
             }
         });
 
+        // Pré-sélection de la formule quand on clique sur "Réserver"
         document.querySelectorAll('.js-open-booking').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-
                 const formula = btn.getAttribute('data-formula');
-
                 if (formula && interestSelect) {
                     interestSelect.value = formula;
                 } else if (interestSelect) {
                     interestSelect.value = 'general';
                 }
-
                 window.openBookingModal();
             });
         });
 
-        form?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = form.querySelector('button[type="submit"]');
-            const originalText = btn.innerText;
-            btn.innerText = 'Envoi en cours...';
-            btn.disabled = true;
-            btn.classList.add('opacity-75', 'cursor-not-allowed');
+        // --- SOUMISSION DU FORMULAIRE (LOGIQUE D'ENVOI) ---
+        form?.addEventListener('submit', function(e) {
+          e.preventDefault();
 
-            setTimeout(() => {
-                formState.classList.add('hidden');
-                successState.classList.remove('hidden');
-                btn.innerText = originalText;
-                btn.disabled = false;
-                btn.classList.remove('opacity-75', 'cursor-not-allowed');
-            }, 1000);
+          const formData = new FormData(form);
+          const object = Object.fromEntries(formData);
+          const json = JSON.stringify(object);
+
+          if(result) {
+            result.innerText = "Envoi en cours...";
+            result.classList.remove('hidden', 'text-red-500');
+            result.classList.add('text-gray-500');
+          }
+
+          const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+          const originalText = btn.innerText;
+          btn.innerText = 'Envoi...';
+          btn.disabled = true;
+          btn.classList.add('opacity-75', 'cursor-not-allowed');
+
+          fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              },
+              body: json
+          })
+          .then(async (response) => {
+              let json = await response.json();
+              if (response.status == 200) {
+                  // SUCCÈS
+                  formState.classList.add('hidden');
+                  successState.classList.remove('hidden');
+              } else {
+                  // ERREUR
+                  console.log(response);
+                  if(result) {
+                    result.innerText = json.message;
+                    result.classList.remove('text-gray-500');
+                    result.classList.add('text-red-500');
+                  }
+                  // On réactive le bouton pour réessayer
+                  btn.innerText = originalText;
+                  btn.disabled = false;
+                  btn.classList.remove('opacity-75', 'cursor-not-allowed');
+              }
+          })
+          .catch(error => {
+              console.log(error);
+              if(result) {
+                  result.innerText = "Une erreur s'est produite. Veuillez réessayer.";
+                  result.classList.remove('text-gray-500');
+                  result.classList.add('text-red-500');
+              }
+              btn.innerText = originalText;
+              btn.disabled = false;
+              btn.classList.remove('opacity-75', 'cursor-not-allowed');
+          });
         });
     });
 </script>

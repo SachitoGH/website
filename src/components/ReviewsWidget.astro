@@ -1,3 +1,16 @@
+---
+import { reviews } from '../data/reviews';
+
+// LOGIQUE : Mélanger et prendre 3 avis au hasard
+// On crée une copie du tableau [...reviews] pour ne pas modifier l'original, puis on trie aléatoirement
+const randomReviews = [...reviews]
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 3);
+
+// Petite fonction helper pour afficher les étoiles
+const renderStars = (rating: number) => "★".repeat(rating);
+---
+
 <section class="py-12 max-w-7xl mx-auto px-4">
     <div class="text-center mb-12">
         <h2 class="text-2xl font-serif text-ocean mb-4">Le livre d'Or</h2>
@@ -7,21 +20,21 @@
     <div class="flex flex-col items-center">
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 w-full">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100/50">
-                <div class="text-yellow-400 text-sm mb-3">★★★★★</div>
-                <p class="text-stone-600 italic leading-relaxed">"Une expérience inoubliable ! La surf house est un petit paradis de calme."</p>
-                <div class="mt-4 font-bold text-dark text-sm">- Sarah M.</div>
-            </div>
-             <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100/50">
-                <div class="text-yellow-400 text-sm mb-3">★★★★★</div>
-                <p class="text-stone-600 italic leading-relaxed">"Meilleur spot de Sidi Kaouki. J'ai progressé super vite grâce au coaching."</p>
-                <div class="mt-4 font-bold text-dark text-sm">- Thomas B.</div>
-            </div>
-             <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100/50">
-                <div class="text-yellow-400 text-sm mb-3">★★★★★</div>
-                <p class="text-stone-600 italic leading-relaxed">"On devait rester 3 jours, on est restés une semaine. Tout est dit."</p>
-                <div class="mt-4 font-bold text-dark text-sm">- Julien & Léa</div>
-            </div>
+            {randomReviews.map((review) => (
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100/50 flex flex-col h-full">
+                    <div class="text-yellow-400 text-sm mb-3 tracking-widest">
+                        {renderStars(review.rating)}
+                    </div>
+
+                    <p class="text-stone-600 italic leading-relaxed flex-grow">
+                        "{review.text}"
+                    </p>
+
+                    <div class="mt-6 font-bold text-dark text-sm border-t border-stone-100 pt-3">
+                        - {review.author}
+                    </div>
+                </div>
+            ))}
         </div>
 
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full">
