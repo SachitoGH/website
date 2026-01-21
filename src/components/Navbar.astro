@@ -9,7 +9,7 @@ const links = [
 ];
 ---
 
-<nav class="bg-sand/70 backdrop-blur-lg fixed w-full z-50 border-b border-white/40 shadow-sm transition-all duration-300 py-2">
+<nav id="navbar" class="bg-sand/70 backdrop-blur-lg fixed w-full z-50 border-b border-white/40 shadow-sm transition-all duration-300 py-2">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <div class="flex justify-between items-center gap-4 md:gap-8 relative z-50">
@@ -69,18 +69,16 @@ const links = [
   document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
+    const navbar = document.getElementById('navbar');
     const body = document.body;
 
+    // Toggle menu mobile
     const toggleMenu = () => {
         btn?.classList.toggle('is-open');
         menu?.classList.toggle('invisible');
         menu?.classList.toggle('opacity-0');
         menu?.classList.toggle('-translate-y-4');
-        if (!menu?.classList.contains('invisible')) {
-          body.style.overflow = 'hidden';
-        } else {
-          body.style.overflow = 'auto';
-        }
+        body.style.overflow = menu?.classList.contains('invisible') ? 'auto' : 'hidden';
     };
 
     if (btn && menu) {
@@ -93,5 +91,19 @@ const links = [
         });
       });
     }
+
+    // Smart header scroll behavior
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > lastScroll && currentScroll > 100) {
+        // Scroll vers le bas -> cacher navbar
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        // Scroll vers le haut -> montrer navbar
+        navbar.style.transform = 'translateY(0)';
+      }
+      lastScroll = currentScroll <= 0 ? 0 : currentScroll; // Reset en haut
+    });
   });
 </script>

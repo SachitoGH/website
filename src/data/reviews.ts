@@ -44,7 +44,7 @@ export const reviews: Review[] = [
   },
   {
     author: "Marc D.",
-    text: "Le matériel est top qualité (rare au Maroc) et les moniteurs sont super pédagogues. Merci à toute l'équipe pour cette semaine de rêve.",
+    text: "Le matériel est top qualité et les moniteurs sont super pédagogues. Merci à toute l'équipe pour cette semaine de rêve.",
     rating: 5,
     source: "Google"
   },

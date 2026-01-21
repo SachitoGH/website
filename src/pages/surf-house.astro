@@ -1,24 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
-// Placeholders
+import FeaturesGrid from '../components/FeaturesGrid.astro';
+import { houseFeatures } from '../data/features';
+
 const gallery = [
-    'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800', // Room
-    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800', // Pool/Vibe
-    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800', // Beach / Vibe
-    'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800'  // Landscape
+    'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800',
+    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800',
+    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800',
+    'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800'
 ];
 ---
 
-<Layout title="Surf House">
+<Layout title="Surf House | Dormir à Sidi Kaouki">
   <div class="pt-10 pb-20 max-w-7xl mx-auto px-4">
+
     <div class="text-center max-w-3xl mx-auto mb-16">
       <h1 class="text-5xl font-serif font-bold text-ocean mb-6">La Surf House</h1>
-      <p class="text-xl text-stone-600">
+      <p class="text-xl text-stone-600 font-light">
         Un havre de paix face à l'océan. Architecture traditionnelle berbère mêlée au confort moderne.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
       {gallery.map((img, index) => (
         <div class={`rounded-2xl overflow-hidden h-64 ${index === 0 ? 'md:col-span-2 md:row-span-2 md:h-full' : ''}`}>
           <img src={img} class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Surf house ambience" />
@@ -26,33 +29,38 @@ const gallery = [
       ))}
     </div>
 
+
     <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
             <h2 class="text-3xl font-serif text-ocean mb-4">L'Auberge Principale</h2>
-            <p class="text-stone-600 mb-6">
-                Chambres doubles et dortoirs cosy. Grand salon commun, terrasse sur le toit pour les cours de yoga et cuisine ouverte.
-                Vivez en communauté avec d'autres passionnés.
+            <p class="text-stone-600 mb-6 leading-relaxed">
+                Nos chambres doubles et dortoirs cosy sont conçus pour votre repos. Profitez du grand salon commun, de la terrasse sur le toit pour les cours de yoga matinal et de notre cuisine ouverte.
+                <br/><br/>
+                Vivez une expérience communautaire authentique avec d'autres passionnés de l'océan.
             </p>
-            <ul class="space-y-2 mb-8 text-terra font-medium">
-                <li>✓ Wifi Fibre</li>
-                <li>✓ Petit-déjeuner Bio</li>
-                <li>✓ Rangement planches</li>
-            </ul>
         </div>
-        <div class="bg-sand p-8 rounded-2xl border border-stone-200">
-            <h3 class="text-xl font-bold mb-4">Partenaires Hébergement</h3>
-            <p class="text-sm text-stone-500 mb-4">Pour plus d'intimité, nous travaillons avec des riads voisins.</p>
+
+        <div class="bg-sand/50 p-8 rounded-2xl border border-stone-200">
+            <h3 class="text-xl font-bold text-dark mb-4">Partenaires Hébergement</h3>
+            <p class="text-sm text-stone-500 mb-6 font-light">Pour plus d'intimité ou des besoins spécifiques, nous collaborons avec les plus beaux établissements voisins.</p>
             <div class="space-y-4">
-                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between">
-                    <span>Dar Alizés (Luxe)</span>
-                    <span class="text-xs bg-stone-100 px-2 py-1 rounded">À 2 min</span>
+                <div class="bg-white p-4 rounded-xl shadow-sm flex items-center justify-between group hover:shadow-md transition">
+                    <span class="font-medium text-dark">Dar Alizés (Luxe)</span>
+                    <span class="text-[10px] uppercase tracking-wider bg-stone-100 text-stone-500 px-3 py-1 rounded-full">À 2 min</span>
                 </div>
-                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between">
-                    <span>Blue Kaouki (Apparts)</span>
-                    <span class="text-xs bg-stone-100 px-2 py-1 rounded">À 5 min</span>
+                <div class="bg-white p-4 rounded-xl shadow-sm flex items-center justify-between group hover:shadow-md transition">
+                    <span class="font-medium text-dark">Blue Kaouki (Apparts)</span>
+                    <span class="text-[10px] uppercase tracking-wider bg-stone-100 text-stone-500 px-3 py-1 rounded-full">À 5 min</span>
                 </div>
             </div>
         </div>
     </div>
+  </div>
+  <div>
+    <FeaturesGrid
+      features={houseFeatures}
+      bgColor="bg-transparent"
+      iconBgColor="bg-sand"
+    />
   </div>
 </Layout>

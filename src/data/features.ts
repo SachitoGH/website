@@ -55,3 +55,21 @@ export const contactFeatures = [
     }
   }
 ];
+
+export const houseFeatures = [
+  {
+    title: "Wifi Fibre",
+    description: "Une connexion haut débit stable dans toute la maison, idéale pour le télétravail entre deux sessions.",
+    iconPath: "M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856a9.75 9.75 0 0113.788 0M1.924 8.674a14.25 14.25 0 0120.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z"
+  },
+  {
+    title: "Petit-déjeuner Bio",
+    description: "Produits locaux, miel d'argan, amlou et fruits frais pour faire le plein d'énergie avant d'aller surfer.",
+    iconPath: "M12 3v18M3 12h18M5.25 5.25l13.5 13.5M18.75 5.25L5.25 18.75" // Icône simplifiée (ou utilisez une icône de tasse/bol)
+  },
+  {
+    title: "Rangement Planches",
+    description: "Un espace sécurisé et ventilé pour rincer et stocker votre matériel personnel en toute sérénité.",
+    iconPath: "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+  }
+];
