@@ -5,30 +5,53 @@ import BookingModal from '../components/BookingModal.astro';
 import '../styles/global.css';
 
 interface Props {
-	title: string;
+    title: string;
+    description?: string;
+    image?: string;
 }
-const { title } = Astro.props;
+
+const {
+    title,
+    description = "Global Surf | École de surf et Surf House à Sidi Kaouki. Découvrez le surf au Maroc avec Global Surf.",
+    image = "/logo-wide.jpg"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(image, Astro.site);
 ---
 <!doctype html>
 <html lang="fr" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="École de surf et Surf House à Sidi Kaouki" />
-		<meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/png" href="/favicon-white.png" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/png" href="/favicon-white.png" />
+
+        <title>{title} | Sidi Surf</title>
+        <meta name="title" content={`${title} | Sidi Surf`} />
+        <meta name="description" content={description} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={socialImageURL} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={canonicalURL} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={socialImageURL} />
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-		<title>{title} | Sidi Surf</title>
-	</head>
-	<body class="bg-sand text-dark font-sans antialiased flex flex-col min-h-screen">
-		<Navbar />
-    <main class="flex-grow pt-20 md:pt-28">
-			<slot />
-		</main>
-    <Footer />
-    <BookingModal />
-	</body>
+    </head>
+    <body class="bg-sand text-dark font-sans antialiased flex flex-col min-h-screen">
+        <Navbar />
+        <main class="flex-grow pt-20 md:pt-28">
+            <slot />
+        </main>
+        <Footer />
+        <BookingModal />
+    </body>
 </html>
