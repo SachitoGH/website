@@ -1,18 +1,18 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import { languages } from '../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+// Helper for language paths
 const l = (path: string) => `/${lang}${path}`;
 
+// Logic for language switch URLs
 const currentPath = Astro.url.pathname;
 const frPath = currentPath.replace(/^\/en/, '/fr');
 const enPath = currentPath.replace(/^\/fr/, '/en');
 
 const links = [
-  { name: t('nav.home'), href: l('/') },
   { name: t('nav.surf'), href: l('/surf') },
   { name: t('nav.trips'), href: l('/trips') },
   { name: t('nav.stays'), href: l('/sejours') },
@@ -95,27 +95,29 @@ const links = [
   const mobileMenu = document.getElementById('mobile-menu');
   const navbar = document.getElementById('navbar');
 
-  if (menuToggle && mobileMenu) {
+  if (menuToggle && mobileMenu && navbar) {
+    // -----------------------------
+    // Toggle Menu Logic
+    // -----------------------------
     menuToggle.addEventListener('click', () => {
       const isOpen = menuToggle.classList.contains('is-open');
 
-      // Toggle classes
       menuToggle.classList.toggle('is-open');
 
       if (!isOpen) {
         // Open menu
         mobileMenu.classList.remove('invisible', 'opacity-0', '-translate-y-4');
         mobileMenu.classList.add('visible', 'opacity-100', 'translate-y-0');
-        document.body.style.overflow = 'hidden'; // Empêche le scroll
+        document.body.style.overflow = 'hidden';
       } else {
         // Close menu
         mobileMenu.classList.add('invisible', 'opacity-0', '-translate-y-4');
         mobileMenu.classList.remove('visible', 'opacity-100', 'translate-y-0');
-        document.body.style.overflow = ''; // Réactive le scroll
+        document.body.style.overflow = '';
       }
     });
 
-    // Fermer le menu si on clique sur un lien
+    // Close menu when clicking a link
     const links = mobileMenu.querySelectorAll('a');
     links.forEach(link => {
         link.addEventListener('click', () => {
@@ -124,6 +126,41 @@ const links = [
             mobileMenu.classList.remove('visible', 'opacity-100', 'translate-y-0');
             document.body.style.overflow = '';
         });
+    });
+
+    // -----------------------------
+    // Smart Header Scroll Behavior
+    // -----------------------------
+    let lastScroll = 0;
+    const downThreshold = 10; // scroll down needed to hide
+    const upThreshold = 1;    // scroll up needed to show
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY || document.documentElement.scrollTop;
+        const diff = currentScroll - lastScroll;
+
+        // Apply logic only on Mobile (< 768px)
+        if (window.innerWidth < 768) {
+            if (diff > downThreshold && currentScroll > 50) {
+                // Scroll down -> hide navbar
+                navbar.style.transform = 'translateY(-100%)';
+            } else if (diff < -upThreshold || currentScroll < 50) {
+                // Scroll up -> show immediately
+                navbar.style.transform = 'translateY(0)';
+            }
+        } else {
+            // Desktop -> always sticky visible
+            navbar.style.transform = 'translateY(0)';
+        }
+
+        lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+    });
+
+    // Reset on resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+            navbar.style.transform = 'translateY(0)';
+        }
     });
   }
 </script>
