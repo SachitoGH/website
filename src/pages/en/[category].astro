@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+import { offerings } from '../../data/offerings';
+
+export function getStaticPaths() {
+  return [
+    { params: { category: 'surf' } },
+    { params: { category: 'trips' } },
+    { params: { category: 'sejours' } },
+    { params: { category: 'experiences' } },
+  ];
+}
+
+const { category } = Astro.params;
+
+// Petit dictionnaire pour afficher le "Vrai" nom de la catégorie en Anglais
+// car l'URL (category) reste 'sejours' pour la compatibilité technique
+const categoryNames: Record<string, string> = {
+  'surf': 'Surf',
+  'trips': 'Trips',
+  'sejours': 'Stays',
+  'experiences': 'Experiences'
+};
+
+const title = categoryNames[category] || category;
+
+// Filtrer les offres pour cette page
+const items = offerings.filter(item => item.category === category);
+---
+
+<Layout title={title}>
+  <div class="bg-ocean text-sand py-20 px-4 text-center">
+    <h1 class="text-4xl md:text-5xl font-serif font-bold">{title}</h1>
+    <p class="mt-4 opacity-80 max-w-xl mx-auto">Explore our packages dedicated to "{title}".</p>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 py-20">
+    {items.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {items.map(item => (
+          <Card
+            title={item.titleEn || item.title}
+            price={item.price}
+            image={item.image}
+            href={`/en/detail/${item.id}`}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-center text-stone-500">No offers available at the moment.</p>
+    )}
+  </div>
+</Layout>

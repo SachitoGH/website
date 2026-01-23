@@ -1,0 +1,43 @@
+---
+import FeaturesGrid from '../../components/FeaturesGrid.astro';
+import Layout from '../../layouts/Layout.astro';
+import InstaFeed from '../../components/InstaFeed.astro';
+import Team from '../../components/Team.astro';
+import { contactFeatures } from '../../data/features';
+---
+
+<Layout title="About">
+
+  <section class="pt-10 pb-20 px-6 bg-sand text-center">
+    <div class="mb-12">
+        <h1 class="text-3xl md:text-5xl font-serif font-bold text-ocean">About Us</h1>
+    </div>
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl font-serif text-ocean mb-6">The Spirit</h2>
+        <p class="text-lg text-stone-600 leading-relaxed font-light">
+            We created Global Surf for a simple reason: to return to the essence of surfing.
+            Far from the crowds, we share an authentic approach, respectful of local culture and the ocean.
+        </p>
+    </div>
+  </section>
+
+  <Team />
+
+  <InstaFeed />
+
+  <FeaturesGrid
+    features={contactFeatures.map(f => ({
+        ...f,
+        title: f.titleEn || f.title,
+        link: f.link ? {
+            ...f.link,
+            subText: f.link.subTextEn || f.link.subText
+        } : f.link
+    }))}
+    title="Any questions? A project?"
+    subtitle="We love to chat. Write to us!"
+    bgColor="bg-light"
+    iconBgColor="bg-sand"
+  />
+
+</Layout>

@@ -1,5 +1,9 @@
 ---
 import { reviews } from '../data/reviews';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const randomReviews = [...reviews]
     .sort(() => 0.5 - Math.random())
@@ -10,8 +14,8 @@ const renderStars = (rating: number) => "★".repeat(rating);
 
 <section class="py-12 max-w-7xl mx-auto px-4">
     <div class="text-center mb-12">
-        <h2 class="text-2xl font-serif text-ocean mb-4">Le livre d'Or</h2>
-        <p class="text-dark/60">Ce que nos surfeurs disent de nous</p>
+        <h2 class="text-2xl font-serif text-ocean mb-4">{t('reviews.title')}</h2>
+        <p class="text-dark/60">{t('reviews.subtitle')}</p>
     </div>
 
     <div class="flex flex-col items-center">
@@ -24,7 +28,7 @@ const renderStars = (rating: number) => "★".repeat(rating);
                     </div>
 
                     <p class="text-stone-600 italic leading-relaxed flex-grow">
-                        "{review.text}"
+                        "{ (lang === 'en' && review.textEn) ? review.textEn : review.text }"
                     </p>
 
                     <div class="mt-6 font-bold text-dark text-sm border-t border-stone-100 pt-3">
@@ -37,11 +41,11 @@ const renderStars = (rating: number) => "★".repeat(rating);
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full">
 
             <a href="https://fr.tripadvisor.be/Attraction_Review-g7008805-d33218271-Reviews-Global_Surf_Sidi_Kaouki-Sidi_Kaouki_Marrakech_Safi.html" target="_blank" class="inline-flex items-center justify-center gap-3 bg-ocean text-white px-8 py-3 rounded-full font-bold hover:bg-ocean/90 transition shadow-lg hover:-translate-y-1 min-w-[250px]">
-                <span>Voir sur TripAdvisor</span>
+                <span>{t('reviews.tripadvisor')}</span>
             </a>
 
             <a href="https://www.google.com/maps/place/?q=place_id:ChIJZ3oQFriFrQ0RdBJlxDsSZjU" target="_blank" class="inline-flex items-center justify-center gap-3 bg-white border border-stone-200 text-dark px-8 py-3 rounded-full font-bold hover:bg-stone-50 transition shadow-sm hover:shadow-md hover:-translate-y-1 min-w-[250px]">
-                <span>Voir sur Google</span>
+                <span>{t('reviews.google')}</span>
             </a>
         </div>
     </div>

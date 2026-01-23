@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { offerings } from '../../data/offerings';
+import Layout from '../../../layouts/Layout.astro';
+import { offerings } from '../../../data/offerings';
 
 export function getStaticPaths() {
   return offerings.map(offer => ({
@@ -10,18 +10,25 @@ export function getStaticPaths() {
 }
 
 const { offer } = Astro.props;
+
+// Préparation des variables en Anglais (avec fallback sur le FR si vide)
+const title = offer.titleEn || offer.title;
+const fullDesc = offer.fullDescEn || offer.fullDesc;
+const features = offer.featuresEn || offer.features;
+const duration = offer.durationEn || offer.duration;
+const level = offer.levelEn || offer.level;
 ---
 
-<Layout title={offer.title}>
+<Layout title={title}>
   <div class="relative h-[60vh] w-full">
-    <img src={offer.image} class="w-full h-full object-cover" alt={offer.title} />
+    <img src={offer.image} class="w-full h-full object-cover" alt={title} />
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
     <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 text-white">
       <div class="max-w-7xl mx-auto">
         <span class="bg-terra text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">
           {offer.category}
         </span>
-        <h1 class="text-4xl md:text-6xl font-serif font-bold">{offer.title}</h1>
+        <h1 class="text-4xl md:text-6xl font-serif font-bold">{title}</h1>
       </div>
     </div>
   </div>
@@ -29,14 +36,14 @@ const { offer } = Astro.props;
   <div class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
     <div class="md:col-span-2 space-y-8">
       <div>
-        <h2 class="text-2xl font-serif text-ocean mb-4">À propos</h2>
-        <p class="text-stone-600 leading-relaxed text-lg">{offer.fullDesc}</p>
+        <h2 class="text-2xl font-serif text-ocean mb-4">About</h2>
+        <p class="text-stone-600 leading-relaxed text-lg">{fullDesc}</p>
       </div>
 
       <div>
-        <h3 class="text-xl font-bold mb-4">Ce qui est inclus</h3>
+        <h3 class="text-xl font-bold mb-4">What's included</h3>
         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {offer.features.map(feature => (
+          {features.map(feature => (
             <li class="flex items-center text-stone-600">
               <span class="w-2 h-2 bg-terra rounded-full mr-3"></span>
               {feature}
@@ -49,18 +56,18 @@ const { offer } = Astro.props;
     <div class="relative">
       <div class="sticky top-24 bg-white p-8 rounded-2xl shadow-lg border border-stone-100">
         <div class="text-center mb-6">
-          <p class="text-stone-500 text-sm uppercase">Prix par personne</p>
+          <p class="text-stone-500 text-sm uppercase">Price per person</p>
           <p class="text-4xl font-serif font-bold text-ocean mt-2">{offer.price}</p>
         </div>
 
         <div class="space-y-4 mb-8 text-sm border-y border-stone-100 py-6">
           <div class="flex justify-between">
-            <span class="text-stone-500">Durée</span>
-            <span class="font-bold">{offer.duration}</span>
+            <span class="text-stone-500">Duration</span>
+            <span class="font-bold">{duration}</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-stone-500">Niveau</span>
-            <span class="font-bold">{offer.level}</span>
+            <span class="text-stone-500">Level</span>
+            <span class="font-bold">{level}</span>
           </div>
         </div>
 
@@ -68,9 +75,9 @@ const { offer } = Astro.props;
           data-formula={offer.category}
           class="js-open-booking w-full bg-ocean hover:bg-ocean/90 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-ocean/30"
         >
-          Réserver maintenant
+          Book Now
         </button>
-        <p class="text-center text-xs text-stone-400 mt-4">Aucun paiement requis aujourd'hui</p>
+        <p class="text-center text-xs text-stone-400 mt-4">No payment required today</p>
       </div>
     </div>
   </div>

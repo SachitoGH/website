@@ -2,8 +2,8 @@
 export interface Feature {
   title: string;
   description: string;
-  iconPath: string; // Le contenu du path SVG
-  link?: {        // Lien optionnel (comme pour Contact)
+  iconPath: string;
+  link?: {
     url: string;
     text: string;
     subText?: string;
@@ -12,8 +12,8 @@ export interface Feature {
 
 interface Props {
   features: Feature[];
-  bgColor?: string;      // Couleur de fond de la section (ex: bg-sand/30)
-  iconBgColor?: string;  // Couleur de fond des ronds (ex: bg-white)
+  bgColor?: string;      // Couleur de fond de la section
+  iconBgColor?: string;  // Couleur de fond des ronds
   title?: string;        // Titre optionnel de la section
   subtitle?: string;     // Sous-titre optionnel
 }
@@ -43,10 +43,6 @@ const {
 
             {/* CERCLE ICONE */}
             <div class={`w-16 h-16 rounded-full ${iconBgColor} flex items-center justify-center text-ocean mb-4 shadow-sm group-hover:scale-110 transition-transform`}>
-                {/* FIX ICI :
-                   1. On s'assure que le SVG a stroke="currentColor"
-                   2. On utilise set:html sur un <g> ou on injecte directement dans le svg
-                */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -59,7 +55,7 @@ const {
                 </svg>
             </div>
 
-            {/* ... reste du code (liens et textes) ... */}
+            {/* CONTENU TEXTE (Déjà traduit par la page parente) */}
             {feature.link ? (
                 <>
                     <a href={feature.link.url} target={feature.link.url.startsWith('http') ? "_blank" : "_self"} class="text-lg font-serif text-dark hover:text-terra transition-colors font-bold">

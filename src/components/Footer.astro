@@ -1,11 +1,15 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 ---
 
 <footer class="bg-ocean text-sand py-12 mt-20">
   <div class="max-w-7xl mx-auto px-4 text-center">
     <h2 class="text-2xl font-serif mb-4">Global Surf</h2>
-    <p class="opacity-80 mb-8">Sidi Kaouki, Essaouira, Maroc</p>
-    <div class="text-sm opacity-50">&copy; {currentYear} Sidi Surf. All waves reserved.</div>
+    <p class="opacity-80 mb-8">{t('footer.location')}</p>
+    <div class="text-sm opacity-50">&copy; {currentYear} {t('footer.rights')}</div>
   </div>
 </footer>

@@ -1,21 +1,27 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
 interface Props {
   title: string;
   price: string;
   image: string;
   href: string;
 }
+
 const { title, price, image, href } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
+
 <a href={href} class="group block overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-300">
   <div class="relative h-64 overflow-hidden">
     <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
     <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-sm font-bold text-ocean">
-      À partir de {price}
+      {t('card.starting')} {price}
     </div>
   </div>
   <div class="p-6">
     <h3 class="text-xl font-bold text-dark mb-2 group-hover:text-terra transition-colors">{title}</h3>
-    <p class="text-stone-500 text-sm">En savoir plus &rarr;</p>
+    <p class="text-stone-500 text-sm">{t('card.learnMore')} &rarr;</p>
   </div>
 </a>

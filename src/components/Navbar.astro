@@ -1,12 +1,24 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { languages } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const l = (path: string) => `/${lang}${path}`;
+
+const currentPath = Astro.url.pathname;
+const frPath = currentPath.replace(/^\/en/, '/fr');
+const enPath = currentPath.replace(/^\/fr/, '/en');
+
 const links = [
-  { name: 'Accueil', href: '/' },
-  { name: 'Surf', href: '/surf' },
-  { name: 'Trips', href: '/trips' },
-  { name: 'Séjours', href: '/sejours' },
-  { name: 'Expériences', href: '/experiences' },
-  { name: 'Surf House', href: '/surf-house' },
-  { name: 'À propos', href: '/about' },
+  { name: t('nav.home'), href: l('/') },
+  { name: t('nav.surf'), href: l('/surf') },
+  { name: t('nav.trips'), href: l('/trips') },
+  { name: t('nav.stays'), href: l('/sejours') },
+  { name: t('nav.experiences'), href: l('/experiences') },
+  { name: t('nav.surf-house'), href: l('/surf-house') },
+  { name: t('nav.about'), href: l('/about') },
 ];
 ---
 
@@ -15,7 +27,7 @@ const links = [
 
     <div class="flex justify-between items-center gap-4 md:gap-8 relative z-50">
 
-      <a href="/" class="flex items-center shrink-0">
+      <a href={l('/')} class="flex items-center shrink-0">
         <img
             src="/logo-dark.png"
             alt="Global Surf School Sidi Kaouki"
@@ -32,12 +44,24 @@ const links = [
             ))}
         </div>
 
+        <div class="flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-dark mr-4">
+          <a href={frPath} class={`hover:text-ocean transition-colors ${lang === 'fr' ? 'text-ocean underline decoration-2 underline-offset-4' : 'opacity-60'}`}>FR</a>
+          <span class="opacity-30">|</span>
+          <a href={enPath} class={`hover:text-ocean transition-colors ${lang === 'en' ? 'text-ocean underline decoration-2 underline-offset-4' : 'opacity-60'}`}>EN</a>
+        </div>
+
         <a href="#book" data-formula="general" class="js-open-booking bg-terra text-white px-6 py-3 lg:px-8 rounded-full font-bold uppercase tracking-widest text-xs shadow-lg hover:bg-terra/80 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 transform">
-          Réserver
+          {t('nav.book')}
         </a>
       </div>
 
-      <div class="md:hidden flex items-center">
+      <div class="md:hidden flex items-center gap-4">
+        <div class="flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-dark">
+            <a href={frPath} class={`${lang === 'fr' ? 'text-ocean' : 'opacity-60'}`}>FR</a>
+            <span class="opacity-30">|</span>
+            <a href={enPath} class={`${lang === 'en' ? 'text-ocean' : 'opacity-60'}`}>EN</a>
+        </div>
+
          <button id="menu-toggle" class="group relative text-dark p-2 hover:bg-dark/5 rounded-full transition focus:outline-none w-12 h-12 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 transition-all duration-300 ease-in-out group-[.is-open]:opacity-0 group-[.is-open]:rotate-90 scale-100 absolute">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -59,9 +83,47 @@ const links = [
         ))}
         <div class="pt-8">
           <a href="#book" data-formula="general" class="js-open-booking bg-terra text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-lg shadow-lg inline-block">
-            Réserver
+            {t('nav.book')}
           </a>
         </div>
     </div>
   </div>
 </nav>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navbar = document.getElementById('navbar');
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuToggle.classList.contains('is-open');
+
+      // Toggle classes
+      menuToggle.classList.toggle('is-open');
+
+      if (!isOpen) {
+        // Open menu
+        mobileMenu.classList.remove('invisible', 'opacity-0', '-translate-y-4');
+        mobileMenu.classList.add('visible', 'opacity-100', 'translate-y-0');
+        document.body.style.overflow = 'hidden'; // Empêche le scroll
+      } else {
+        // Close menu
+        mobileMenu.classList.add('invisible', 'opacity-0', '-translate-y-4');
+        mobileMenu.classList.remove('visible', 'opacity-100', 'translate-y-0');
+        document.body.style.overflow = ''; // Réactive le scroll
+      }
+    });
+
+    // Fermer le menu si on clique sur un lien
+    const links = mobileMenu.querySelectorAll('a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('is-open');
+            mobileMenu.classList.add('invisible', 'opacity-0', '-translate-y-4');
+            mobileMenu.classList.remove('visible', 'opacity-100', 'translate-y-0');
+            document.body.style.overflow = '';
+        });
+    });
+  }
+</script>

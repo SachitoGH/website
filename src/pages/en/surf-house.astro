@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import FeaturesGrid from '../components/FeaturesGrid.astro';
-import { houseFeatures } from '../data/features';
+import Layout from '../../layouts/Layout.astro';
+import FeaturesGrid from '../../components/FeaturesGrid.astro';
+import { houseFeatures } from '../../data/features';
 
 const gallery = [
     'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800',
@@ -11,13 +11,13 @@ const gallery = [
 ];
 ---
 
-<Layout title="Surf House | Dormir à Sidi Kaouki">
+<Layout title="Surf House | Stay in Sidi Kaouki">
   <div class="pt-10 pb-20 max-w-7xl mx-auto px-4">
 
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h1 class="text-5xl font-serif font-bold text-ocean mb-6">La Surf House</h1>
+      <h1 class="text-5xl font-serif font-bold text-ocean mb-6">The Surf House</h1>
       <p class="text-xl text-stone-600 font-light">
-        Un havre de paix face à l'océan. Architecture traditionnelle berbère mêlée au confort moderne.
+        A haven of peace facing the ocean. Traditional Berber architecture mixed with modern comfort.
       </p>
     </div>
 
@@ -32,25 +32,25 @@ const gallery = [
 
     <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
-            <h2 class="text-3xl font-serif text-ocean mb-4">L'Auberge Principale</h2>
+            <h2 class="text-3xl font-serif text-ocean mb-4">The Main Hostel</h2>
             <p class="text-stone-600 mb-6 leading-relaxed">
-                Nos chambres doubles et dortoirs cosy sont conçus pour votre repos. Profitez du grand salon commun, de la terrasse sur le toit pour les cours de yoga matinal et de notre cuisine ouverte.
+                Our double rooms and cozy dorms are designed for your rest. Enjoy the large common living room, the rooftop terrace for morning yoga classes, and our open kitchen.
                 <br/><br/>
-                Vivez une expérience communautaire authentique avec d'autres passionnés de l'océan.
+                Experience an authentic community vibe with other ocean enthusiasts.
             </p>
         </div>
 
         <div class="bg-sand/50 p-8 rounded-2xl border border-stone-200">
-            <h3 class="text-xl font-bold text-dark mb-4">Partenaires Hébergement</h3>
-            <p class="text-sm text-stone-500 mb-6 font-light">Pour plus d'intimité ou des besoins spécifiques, nous collaborons avec les plus beaux établissements voisins.</p>
+            <h3 class="text-xl font-bold text-dark mb-4">Accommodation Partners</h3>
+            <p class="text-sm text-stone-500 mb-6 font-light">For more privacy or specific needs, we collaborate with the best neighboring establishments.</p>
             <div class="space-y-4">
                 <div class="bg-white p-4 rounded-xl shadow-sm flex items-center justify-between group hover:shadow-md transition">
-                    <span class="font-medium text-dark">Dar Alizés (Luxe)</span>
-                    <span class="text-[10px] uppercase tracking-wider bg-stone-100 text-stone-500 px-3 py-1 rounded-full">À 2 min</span>
+                    <span class="font-medium text-dark">Dar Alizés (Luxury)</span>
+                    <span class="text-[10px] uppercase tracking-wider bg-stone-100 text-stone-500 px-3 py-1 rounded-full">2 min away</span>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm flex items-center justify-between group hover:shadow-md transition">
-                    <span class="font-medium text-dark">Blue Kaouki (Apparts)</span>
-                    <span class="text-[10px] uppercase tracking-wider bg-stone-100 text-stone-500 px-3 py-1 rounded-full">À 5 min</span>
+                    <span class="font-medium text-dark">Blue Kaouki (Apartments)</span>
+                    <span class="text-[10px] uppercase tracking-wider bg-stone-100 text-stone-500 px-3 py-1 rounded-full">5 min away</span>
                 </div>
             </div>
         </div>
@@ -58,7 +58,11 @@ const gallery = [
   </div>
   <div>
     <FeaturesGrid
-      features={houseFeatures}
+      features={houseFeatures.map(f => ({
+        ...f,
+        title: f.titleEn || f.title,
+        description: f.descriptionEn || f.description
+      }))}
       bgColor="bg-transparent"
       iconBgColor="bg-light"
     />

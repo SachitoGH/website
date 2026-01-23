@@ -1,7 +1,8 @@
 ---
-/* BookingModal.astro
-  Formulaire fonctionnel avec Web3Forms
-*/
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 <div id="booking-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div class="fixed inset-0 bg-dark/60 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
@@ -19,11 +20,13 @@
         <div class="px-6 py-8 md:px-8 md:py-10">
             <div id="form-state">
                 <div class="text-center mb-6">
-                    <h3 class="text-2xl font-serif font-bold text-ocean">Réserver votre vague</h3>
-                    <p class="text-sm text-dark/70 mt-2">Dites-nous en plus sur votre projet de voyage.</p>
+                    <h3 class="text-2xl font-serif font-bold text-ocean">{t('booking.title')}</h3>
+                    <p class="text-sm text-dark/70 mt-2">{t('booking.subtitle')}</p>
                 </div>
 
-                <form id="booking-form" class="space-y-4">
+                <form id="booking-form" class="space-y-4"
+                      data-msg-sending={t('booking.js.sending')}
+                      data-msg-error={t('booking.js.error')}>
 
                     <input type="hidden" name="access_key" value="ebc4ca49-4599-46ba-a0bf-ea764c04c468">
                     <input type="hidden" name="subject" value="Nouvelle Réservation - Global Surf">
@@ -32,54 +35,54 @@
 
                     <div class="space-y-4">
                         <div>
-                            <label for="name" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Nom complet</label>
-                            <input type="text" name="name" id="name" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400" placeholder="Ex: Sarah Martin" />
+                            <label for="name" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">{t('booking.label.name')}</label>
+                            <input type="text" name="name" id="name" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400" placeholder={t('booking.placeholder.name')} />
                         </div>
                         <div>
-                            <label for="email" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Email</label>
-                            <input type="email" name="email" id="email" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400" placeholder="Ex: sarah@email.com" />
+                            <label for="email" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">{t('booking.label.email')}</label>
+                            <input type="email" name="email" id="email" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400" placeholder={t('booking.placeholder.email')} />
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label for="date" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Arrivée</label>
+                            <label for="date" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">{t('booking.label.arrival')}</label>
                             <input type="date" name="date" id="date" required class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600" />
                         </div>
                         <div>
-                            <label for="guests" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Voyageurs</label>
+                            <label for="guests" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">{t('booking.label.guests')}</label>
                             <select name="guests" id="guests" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600">
-                                <option value="1 personne">1 personne</option>
-                                <option value="2 personnes">2 personnes</option>
-                                <option value="3 personnes">3 personnes</option>
-                                <option value="4+ groupe">4+ groupe</option>
+                                <option value="1 personne">{t('booking.guests.1')}</option>
+                                <option value="2 personnes">{t('booking.guests.2')}</option>
+                                <option value="3 personnes">{t('booking.guests.3')}</option>
+                                <option value="4+ groupe">{t('booking.guests.group')}</option>
                             </select>
                         </div>
                     </div>
 
                     <div>
-                         <label for="interest" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Formule souhaitée</label>
+                         <label for="interest" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">{t('booking.label.interest')}</label>
                          <select name="interest" id="interest" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600">
-                            <option value="general">Je ne sais pas encore / Autre</option>
-                            <option value="surf">Cours de Surf</option>
-                            <option value="trips">Surf Trip / Guiding</option>
-                            <option value="sejours">Séjour Complet</option>
-                            <option value="experiences">Expérience (Surf dune, camel ride...)</option>
-                            <option value="housing">Hébergement seul</option>
+                            <option value="general">{t('booking.interest.general')}</option>
+                            <option value="surf">{t('booking.interest.surf')}</option>
+                            <option value="trips">{t('booking.interest.trips')}</option>
+                            <option value="sejours">{t('booking.interest.sejours')}</option>
+                            <option value="experiences">{t('booking.interest.experiences')}</option>
+                            <option value="housing">{t('booking.interest.housing')}</option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="message" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">Message (Optionnel)</label>
-                        <textarea name="message" id="message" rows="3" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400 resize-none" placeholder="Niveau de surf, questions..."></textarea>
+                        <label for="message" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">{t('booking.label.message')}</label>
+                        <textarea name="message" id="message" rows="3" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra focus:ring-1 focus:ring-terra transition placeholder-stone-400 resize-none" placeholder={t('booking.placeholder.message')}></textarea>
                     </div>
 
                     <div id="result" class="text-center text-sm mb-2 hidden"></div>
 
                     <button type="submit" class="w-full bg-terra text-white font-bold py-4 rounded-xl shadow-lg hover:bg-terra/90 hover:-translate-y-0.5 transition-all duration-300 mt-2">
-                        Envoyer la demande
+                        {t('booking.submit')}
                     </button>
-                    <p class="text-[10px] text-center text-dark/40 uppercase tracking-wider">Aucun paiement requis pour l'instant</p>
+                    <p class="text-[10px] text-center text-dark/40 uppercase tracking-wider">{t('booking.subtext')}</p>
                 </form>
             </div>
 
@@ -89,10 +92,10 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
                 </div>
-                <h3 class="text-3xl font-serif font-bold text-ocean mb-4">Message reçu !</h3>
-                <p class="text-dark/80 mb-8 max-w-xs mx-auto">Merci. Notre équipe va étudier votre demande et vous répondra sous 24h.</p>
+                <h3 class="text-3xl font-serif font-bold text-ocean mb-4">{t('booking.success.title')}</h3>
+                <p class="text-dark/80 mb-8 max-w-xs mx-auto">{t('booking.success.text')}</p>
                 <button id="close-success" class="bg-dark text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs shadow-lg hover:bg-dark/90 transition">
-                    Retour au site
+                    {t('booking.success.back')}
                 </button>
             </div>
 
@@ -115,7 +118,11 @@
         const interestSelect = document.getElementById('interest') as HTMLSelectElement;
         const result = document.getElementById('result');
 
-        // --- GESTION DE L'OUVERTURE / FERMETURE DU MODAL (Inchangé) ---
+        // Récupération des textes traduits depuis les attributs data
+        const msgSending = form?.getAttribute('data-msg-sending') || 'Envoi...';
+        const msgError = form?.getAttribute('data-msg-error') || 'Erreur.';
+
+        // --- GESTION DE L'OUVERTURE / FERMETURE DU MODAL ---
         window.openBookingModal = () => {
             if(!modal) return;
             modal.classList.remove('hidden');
@@ -143,6 +150,14 @@
                      if(result) {
                         result.classList.add('hidden');
                         result.innerText = '';
+                     }
+                     // Reset bouton
+                     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+                     if(btn) {
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                        // Note: Le texte du bouton sera remis lors du prochain chargement de page ou reset manuel
+                        // Pour faire simple, on laisse tel quel car le modal est caché
                      }
                 }, 100);
             }, 300);
@@ -181,14 +196,14 @@
           const json = JSON.stringify(object);
 
           if(result) {
-            result.innerText = "Envoi en cours...";
+            result.innerText = msgSending; // Utilisation du texte traduit
             result.classList.remove('hidden', 'text-red-500');
             result.classList.add('text-gray-500');
           }
 
           const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
           const originalText = btn.innerText;
-          btn.innerText = 'Envoi...';
+          btn.innerText = msgSending; // Utilisation du texte traduit
           btn.disabled = true;
           btn.classList.add('opacity-75', 'cursor-not-allowed');
 
@@ -210,11 +225,10 @@
                   // ERREUR
                   console.log(response);
                   if(result) {
-                    result.innerText = json.message;
+                    result.innerText = json.message || msgError;
                     result.classList.remove('text-gray-500');
                     result.classList.add('text-red-500');
                   }
-                  // On réactive le bouton pour réessayer
                   btn.innerText = originalText;
                   btn.disabled = false;
                   btn.classList.remove('opacity-75', 'cursor-not-allowed');
@@ -223,7 +237,7 @@
           .catch(error => {
               console.log(error);
               if(result) {
-                  result.innerText = "Une erreur s'est produite. Veuillez réessayer.";
+                  result.innerText = msgError; // Utilisation du texte traduit
                   result.classList.remove('text-gray-500');
                   result.classList.add('text-red-500');
               }

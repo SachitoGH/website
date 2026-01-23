@@ -6,6 +6,14 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://surf-sidi-kaouki.vercel.app',
 
+  i18n: {
+    defaultLocale: "fr",
+    locales: ["fr", "en"],
+    routing: {
+      prefixDefaultLocale: true // On force le /fr/ dans l'URL
+    }
+  },
+
   vite: {
     plugins: [tailwindcss()]
   }
