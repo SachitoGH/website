@@ -3,31 +3,25 @@ export interface TeamMember {
   role: string;
   roleEn?: string;
   image: string;
+  bio?: string;
+  bioEn?: string;
 }
 
 export const teamMembers: TeamMember[] = [
   {
-    name: "Yassine",
-    role: "Fondateur & Head Coach",
-    roleEn: "Founder & Head Coach",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop"
+    name: "Salim",
+    role: "Moniteur Certifié & Co-Fondateur",
+    roleEn: "Certified Instructor & Co-Founder",
+    image: "", // pas d'image
+    bio: "Originaire de Safi, Salim est tombé dans le surf très jeune. Champion à trois reprises dans sa jeunesse, il transmet aujourd'hui son expérience avec une approche technique et humaine.",
+    bioEn: "Originally from Safi, Salim fell into surfing at a very young age. A three-time champion in his youth, he now shares his experience with a technical and human approach."
   },
   {
-    name: "Sarah",
-    role: "Manager Surf House",
-    roleEn: "Surf House Manager",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop"
-  },
-  {
-    name: "Omar",
-    role: "Surf Guide",
-    roleEn: "Surf Guide",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop"
-  },
-  {
-    name: "Karim",
-    role: "Chef Cuisinier",
-    roleEn: "Head Chef",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop"
+    name: "Lili",
+    role: "Co-Fondatrice & Organisation",
+    roleEn: "Co-Founder & Organization",
+    image: "", // pas d'image
+    bio: "Ancienne professeure de natation, Lili s'est naturellement tournée vers l'océan avant de tomber amoureuse du surf et de l'énergie qu'il procure. Elle gère la Surf House et la vie du camp.",
+    bioEn: "A former swimming teacher, Lili naturally turned to the ocean before falling in love with surfing and its energy. She manages the Surf House and camp life."
   }
 ];

@@ -1,27 +1,36 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { Image } from 'astro:assets';
 
 interface Props {
   title: string;
   price: string;
-  image: string;
+  image: any; // Metadata object from astro
   href: string;
 }
 
 const { title, price, image, href } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 ---
 
-<a href={href} class="group block overflow-hidden rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-300">
+<a href={href} class="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
   <div class="relative h-64 overflow-hidden">
-    <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-    <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-sm font-bold text-ocean">
-      {t('card.starting')} {price}
+    <Image
+      src={image}
+      alt={title}
+      width={600}
+      height={400}
+      class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+    />
+    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full shadow-sm">
+      <span class="text-ocean font-bold">{price}</span>
     </div>
   </div>
   <div class="p-6">
-    <h3 class="text-xl font-bold text-dark mb-2 group-hover:text-terra transition-colors">{title}</h3>
-    <p class="text-stone-500 text-sm">{t('card.learnMore')} &rarr;</p>
+    <h3 class="text-xl font-serif text-ocean group-hover:text-terra transition-colors duration-300">{title}</h3>
+    <div class="mt-4 flex items-center text-terra font-medium text-sm">
+      <span>Voir les détails</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </div>
   </div>
 </a>

@@ -1,0 +1,55 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FeaturesGrid from '../../components/FeaturesGrid.astro';
+import InstaFeed from '../../components/InstaFeed.astro';
+import Team from '../../components/Team.astro';
+import { contactFeatures } from '../../data/features';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'fr' } }, { params: { lang: 'en' } }];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as any);
+---
+
+<Layout title={t('about.meta.title')}>
+
+  <div class="bg-ocean text-sand py-20 px-4 text-center">
+    <h1 class="text-4xl md:text-5xl font-serif font-bold">{t('about.hero.title')}</h1>
+  </div>
+
+  <section class="py-20 px-6 text-center">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-serif text-ocean mb-8">{t('about.spirit.title')}</h2>
+        <p class="text-lg text-stone-600 leading-relaxed font-light mb-6">
+            {t('about.spirit.p1')}
+        </p>
+        <p class="text-lg text-stone-600 leading-relaxed font-light">
+            {t('about.spirit.p2')}
+        </p>
+    </div>
+  </section>
+
+  <Team />
+
+  <InstaFeed />
+
+  <FeaturesGrid
+    features={contactFeatures.map(f => ({
+        ...f,
+        title: lang === 'en' ? (f.titleEn || f.title) : f.title,
+        description: lang === 'en' ? (f.descriptionEn || f.description) : f.description,
+        link: f.link ? {
+            ...f.link,
+            subText: lang === 'en' ? (f.link.subTextEn || f.link.subText) : f.link.subText
+        } : f.link
+    }))}
+    title={t('about.contact.title')}
+    subtitle={t('about.contact.subtitle')}
+    bgColor="bg-light"
+    iconBgColor="bg-white"
+  />
+
+</Layout>

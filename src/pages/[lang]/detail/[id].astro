@@ -1,27 +1,43 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import { offerings } from '../../../data/offerings';
+import { useTranslations } from '../../../i18n/utils';
 
 export function getStaticPaths() {
-  return offerings.map(offer => ({
-    params: { id: offer.id },
-    props: { offer },
-  }));
+  const langs = ['fr', 'en'];
+
+  // On génère la page pour chaque offre, dans chaque langue
+  return langs.flatMap(lang =>
+    offerings.map(offer => ({
+        params: { lang, id: offer.id },
+        props: { offer },
+    }))
+  );
 }
 
+const { lang } = Astro.params;
 const { offer } = Astro.props;
+const t = useTranslations(lang as any);
 
-// Préparation des variables en Anglais (avec fallback sur le FR si vide)
-const title = offer.titleEn || offer.title;
-const fullDesc = offer.fullDescEn || offer.fullDesc;
-const features = offer.featuresEn || offer.features;
-const duration = offer.durationEn || offer.duration;
-const level = offer.levelEn || offer.level;
+// Préparation des variables
+const title = lang === 'en' ? (offer.titleEn || offer.title) : offer.title;
+const fullDesc = lang === 'en' ? (offer.fullDescEn || offer.fullDesc) : offer.fullDesc;
+const features = lang === 'en' ? (offer.featuresEn || offer.features) : offer.features;
+const duration = lang === 'en' ? (offer.durationEn || offer.duration) : offer.duration;
+const level = lang === 'en' ? (offer.levelEn || offer.level) : offer.level;
 ---
 
 <Layout title={title}>
   <div class="relative h-[60vh] w-full">
-    <img src={offer.image} class="w-full h-full object-cover" alt={title} />
+    <Image
+      src={offer.image}
+      class="w-full h-full object-cover"
+      alt={title}
+      width={1920}
+      height={1080}
+      loading="eager"
+    />
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
     <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 text-white">
       <div class="max-w-7xl mx-auto">
@@ -36,12 +52,12 @@ const level = offer.levelEn || offer.level;
   <div class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
     <div class="md:col-span-2 space-y-8">
       <div>
-        <h2 class="text-2xl font-serif text-ocean mb-4">About</h2>
+        <h2 class="text-2xl font-serif text-ocean mb-4">{t('detail.about')}</h2>
         <p class="text-stone-600 leading-relaxed text-lg">{fullDesc}</p>
       </div>
 
       <div>
-        <h3 class="text-xl font-bold mb-4">What's included</h3>
+        <h3 class="text-xl font-bold mb-4">{t('detail.included')}</h3>
         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {features.map(feature => (
             <li class="flex items-center text-stone-600">
@@ -56,28 +72,28 @@ const level = offer.levelEn || offer.level;
     <div class="relative">
       <div class="sticky top-24 bg-white p-8 rounded-2xl shadow-lg border border-stone-100">
         <div class="text-center mb-6">
-          <p class="text-stone-500 text-sm uppercase">Price per person</p>
+          <p class="text-stone-500 text-sm uppercase">{t('detail.price')}</p>
           <p class="text-4xl font-serif font-bold text-ocean mt-2">{offer.price}</p>
         </div>
 
         <div class="space-y-4 mb-8 text-sm border-y border-stone-100 py-6">
           <div class="flex justify-between">
-            <span class="text-stone-500">Duration</span>
+            <span class="text-stone-500">{t('detail.duration')}</span>
             <span class="font-bold">{duration}</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-stone-500">Level</span>
+            <span class="text-stone-500">{t('detail.level')}</span>
             <span class="font-bold">{level}</span>
           </div>
         </div>
 
         <button
-          data-formula={offer.category}
+          data-formula={offer.id}
           class="js-open-booking w-full bg-ocean hover:bg-ocean/90 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-ocean/30"
         >
-          Book Now
+          {t('detail.book')}
         </button>
-        <p class="text-center text-xs text-stone-400 mt-4">No payment required today</p>
+        <p class="text-center text-xs text-stone-400 mt-4">{t('detail.nopayment')}</p>
       </div>
     </div>
   </div>

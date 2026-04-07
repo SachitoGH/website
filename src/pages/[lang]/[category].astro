@@ -1,0 +1,55 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+import { offerings } from '../../data/offerings';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  const categories = ['surf', 'trips', 'sejours', 'experiences'];
+  const langs = ['fr', 'en'];
+
+  // On génère le croisement de toutes les langues et toutes les catégories
+  return langs.flatMap(lang =>
+    categories.map(category => ({ params: { lang, category } }))
+  );
+}
+
+const { lang, category } = Astro.params;
+const t = useTranslations(lang as any);
+
+// Petit dictionnaire pour afficher le "Vrai" nom de la catégorie (réutilisation propre)
+const categoryNames: Record<string, any> = {
+  'surf': t('nav.surf'),
+  'trips': t('nav.trips'),
+  'sejours': t('nav.stays'),
+  'experiences': t('nav.experiences')
+};
+const title = categoryNames[category] || category;
+
+// Filtrer les offres pour cette page
+const items = offerings.filter(item => item.category === category);
+---
+
+<Layout title={title}>
+  <div class="bg-ocean text-sand py-20 px-4 text-center">
+    <h1 class="text-4xl md:text-5xl font-serif font-bold">{title}</h1>
+    <p class="mt-4 opacity-80 max-w-xl mx-auto">{t('category.explore')} "{title}".</p>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 py-20">
+    {items.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {items.map(item => (
+          <Card
+            title={lang === 'en' ? (item.titleEn || item.title) : item.title}
+            price={item.price}
+            image={item.image}
+            href={`/${lang}/detail/${item.id}`}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-center text-stone-500">{t('category.empty')}</p>
+    )}
+  </div>
+</Layout>
