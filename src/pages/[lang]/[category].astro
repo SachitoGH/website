@@ -24,6 +24,7 @@ const categoryNames: Record<string, any> = {
   'sejours': t('nav.stays'),
   'experiences': t('nav.experiences')
 };
+
 const title = categoryNames[category] || category;
 
 // Filtrer les offres pour cette page
@@ -42,7 +43,7 @@ const items = offerings.filter(item => item.category === category);
         {items.map(item => (
           <Card
             title={lang === 'en' ? (item.titleEn || item.title) : item.title}
-            price={item.price}
+            priceDisplay={item.priceDisplay}
             image={item.image}
             href={`/${lang}/detail/${item.id}`}
           />
