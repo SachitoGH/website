@@ -3,6 +3,15 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Traductions locales pour le calculateur
+const tNights = lang === 'en' ? 'Number of nights' : 'Nombre de nuits';
+const tCalcProg = lang === 'en' ? 'Your program:' : 'Votre programme :';
+const tCalcEst = lang === 'en' ? 'Estimated price:' : 'Prix estimé :';
+const tNightsWord = lang === 'en' ? 'nights' : 'nuits';
+const tLessonsWord = lang === 'en' ? 'lessons' : 'cours';
+const tMealsWord = lang === 'en' ? 'half-boards' : 'demi-pensions';
+const tPerPers = lang === 'en' ? '/ pers' : '/ pers';
 ---
 <div id="booking-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div class="fixed inset-0 bg-dark/60 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
@@ -30,7 +39,7 @@ const t = useTranslations(lang);
 
                     <input type="hidden" name="access_key" value="ebc4ca49-4599-46ba-a0bf-ea764c04c468">
                     <input type="hidden" name="subject" value="Nouvelle Réservation - Global Surf">
-                    <input type="hidden" name="from_name" value="Site Web">
+                    <input type="hidden" name="from_name" value="Site Web Global Surf">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                     <div class="space-y-4">
@@ -64,12 +73,42 @@ const t = useTranslations(lang);
                          <label for="interest" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">{t('booking.label.interest')}</label>
                          <select name="interest" id="interest" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600">
                             <option value="general">{t('booking.interest.general')}</option>
-                            <option value="surf">{t('booking.interest.surf')}</option>
-                            <option value="trips">{t('booking.interest.trips')}</option>
-                            <option value="sejours">{t('booking.interest.sejours')}</option>
-                            <option value="experiences">{t('booking.interest.experiences')}</option>
-                            <option value="housing">{t('booking.interest.housing')}</option>
+                            <optgroup label="Surf">
+                              <option value="cours-collectif">Cours Collectifs</option>
+                              <option value="cours-semi-prive">Cours Semi-Privé</option>
+                              <option value="cours-prive">Cours Privé</option>
+                            </optgroup>
+                            <optgroup label="Trips">
+                              <option value="trip-tafedna">Surf Trip Tafedna</option>
+                              <option value="trip-imsouane">Surf Trip Imsouane</option>
+                              <option value="trip-taghazout">Trip Taghazout (2j)</option>
+                              <option value="trip-tamraght">Trip Tamraght (2j)</option>
+                              <option value="surf-secret-spot">Surf Secret Spot</option>
+                            </optgroup>
+                            <optgroup label="Séjours">
+                              <option value="sejour-semaine">La Semaine Surf</option>
+                              <option value="sejour-weekend">Week-end Surf</option>
+                              <option value="sejour-libre">Formule Libre (Sur-mesure)</option>
+                            </optgroup>
+                            <optgroup label="Expériences">
+                              <option value="exp-camel">Camel Ride</option>
+                              <option value="exp-horse">Horse Ride</option>
+                              <option value="exp-quad">Quad Adventure</option>
+                              <option value="exp-hammam">Hammam Traditionnel</option>
+                            </optgroup>
                         </select>
+                    </div>
+
+                    <div id="calculator-container" class="hidden bg-ocean/5 border border-ocean/10 p-4 rounded-xl space-y-3">
+                        <div>
+                            <label for="nights" class="block text-xs font-bold uppercase tracking-widest text-ocean mb-1 ml-1">{tNights}</label>
+                            <input type="number" name="nights" id="nights" min="2" max="30" value="3" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-2 focus:outline-none focus:border-terra transition text-stone-600" />
+                        </div>
+                        <div class="text-sm text-stone-600 bg-white p-3 rounded-lg border border-stone-100">
+                            <p class="font-medium text-ocean mb-1">{tCalcProg}</p>
+                            <p id="calc-program" class="mb-2">-</p>
+                            <p class="font-medium text-ocean">{tCalcEst} <span id="calc-price" class="text-terra font-bold ml-1">-</span></p>
+                        </div>
                     </div>
 
                     <div>
@@ -105,26 +144,52 @@ const t = useTranslations(lang);
   </div>
 </div>
 
-<script>
+<script define:vars={{ tNightsWord, tLessonsWord, tMealsWord, tPerPers }}>
     document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('booking-modal');
         const backdrop = document.getElementById('modal-backdrop');
         const panel = document.getElementById('modal-panel');
         const closeBtn = document.getElementById('close-modal');
         const closeSuccessBtn = document.getElementById('close-success');
-        const form = document.getElementById('booking-form') as HTMLFormElement;
+        const form = document.getElementById('booking-form');
         const formState = document.getElementById('form-state');
         const successState = document.getElementById('success-state');
-        const interestSelect = document.getElementById('interest') as HTMLSelectElement;
+        const interestSelect = document.getElementById('interest');
         const result = document.getElementById('result');
 
-        // Récupération des textes traduits depuis les attributs data
+        // Éléments du calculateur
+        const calcContainer = document.getElementById('calculator-container');
+        const nightsInput = document.getElementById('nights');
+        const calcProgram = document.getElementById('calc-program');
+        const calcPrice = document.getElementById('calc-price');
+
         const msgSending = form?.getAttribute('data-msg-sending') || 'Envoi...';
         const msgError = form?.getAttribute('data-msg-error') || 'Erreur.';
 
-        // --- GESTION DE L'OUVERTURE / FERMETURE DU MODAL ---
+        // Fonction pour mettre à jour le calculateur "Formule Libre"
+        const updateCalculator = () => {
+            if (interestSelect.value === 'sejour-libre') {
+                calcContainer.classList.remove('hidden');
+                let n = parseInt(nightsInput.value) || 2;
+                let lessons = Math.max(0, n - 1);
+
+                // Calcul du prix : 90€/jour si < 4 nuits, 80€/jour si 4+ nuits
+                let pricePerDay = n >= 4 ? 80 : 90;
+                let total = n * pricePerDay;
+
+                calcProgram.innerText = `${n} ${tNightsWord}, ${lessons} ${tLessonsWord}, ${lessons} ${tMealsWord}`;
+                calcPrice.innerText = `${total}€ ${tPerPers}`;
+            } else {
+                calcContainer.classList.add('hidden');
+            }
+        };
+
+        interestSelect?.addEventListener('change', updateCalculator);
+        nightsInput?.addEventListener('input', updateCalculator);
+
         window.openBookingModal = () => {
             if(!modal) return;
+            updateCalculator(); // Rafraîchit le calcul à l'ouverture
             modal.classList.remove('hidden');
             setTimeout(() => {
                 backdrop.classList.remove('opacity-0');
@@ -142,22 +207,19 @@ const t = useTranslations(lang);
 
             setTimeout(() => {
                 modal.classList.add('hidden');
-                // On réinitialise l'état pour la prochaine fois
                 setTimeout(() => {
                      formState.classList.remove('hidden');
                      successState.classList.add('hidden');
                      form.reset();
+                     updateCalculator(); // Reset affichage calc
                      if(result) {
                         result.classList.add('hidden');
                         result.innerText = '';
                      }
-                     // Reset bouton
-                     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+                     const btn = form.querySelector('button[type="submit"]');
                      if(btn) {
                         btn.disabled = false;
                         btn.classList.remove('opacity-75', 'cursor-not-allowed');
-                        // Note: Le texte du bouton sera remis lors du prochain chargement de page ou reset manuel
-                        // Pour faire simple, on laisse tel quel car le modal est caché
                      }
                 }, 100);
             }, 300);
@@ -173,59 +235,63 @@ const t = useTranslations(lang);
             }
         });
 
-        // Pré-sélection de la formule quand on clique sur "Réserver"
+        // Pré-sélection exacte depuis la page détail
         document.querySelectorAll('.js-open-booking').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const formula = btn.getAttribute('data-formula');
+
                 if (formula && interestSelect) {
-                    interestSelect.value = formula;
-                } else if (interestSelect) {
-                    interestSelect.value = 'general';
+                    // Cherche l'option exacte dans le select
+                    const exactMatch = Array.from(interestSelect.options).some(opt => opt.value === formula);
+                    if (exactMatch) {
+                        interestSelect.value = formula;
+                    } else {
+                        interestSelect.value = 'general';
+                    }
                 }
                 window.openBookingModal();
             });
         });
 
-        // --- SOUMISSION DU FORMULAIRE (LOGIQUE D'ENVOI) ---
+        // Soumission
         form?.addEventListener('submit', function(e) {
           e.preventDefault();
-
           const formData = new FormData(form);
           const object = Object.fromEntries(formData);
+
+          // Ajoute la valeur du calculateur au message si Formule Libre
+          if (object.interest === 'sejour-libre') {
+              object.message = `[Détails Formule Libre: ${calcProgram.innerText} | Estimation: ${calcPrice.innerText}]\n\n` + object.message;
+          }
+
           const json = JSON.stringify(object);
 
           if(result) {
-            result.innerText = msgSending; // Utilisation du texte traduit
+            result.innerText = msgSending;
             result.classList.remove('hidden', 'text-red-500');
             result.classList.add('text-gray-500');
           }
 
-          const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+          const btn = form.querySelector('button[type="submit"]');
           const originalText = btn.innerText;
-          btn.innerText = msgSending; // Utilisation du texte traduit
+          btn.innerText = msgSending;
           btn.disabled = true;
           btn.classList.add('opacity-75', 'cursor-not-allowed');
 
           fetch('https://api.web3forms.com/submit', {
               method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-              },
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
               body: json
           })
           .then(async (response) => {
-              let json = await response.json();
+              let resJson = await response.json();
               if (response.status == 200) {
-                  // SUCCÈS
                   formState.classList.add('hidden');
                   successState.classList.remove('hidden');
               } else {
-                  // ERREUR
-                  console.log(response);
                   if(result) {
-                    result.innerText = json.message || msgError;
+                    result.innerText = resJson.message || msgError;
                     result.classList.remove('text-gray-500');
                     result.classList.add('text-red-500');
                   }
@@ -235,9 +301,8 @@ const t = useTranslations(lang);
               }
           })
           .catch(error => {
-              console.log(error);
               if(result) {
-                  result.innerText = msgError; // Utilisation du texte traduit
+                  result.innerText = msgError;
                   result.classList.remove('text-gray-500');
                   result.classList.add('text-red-500');
               }

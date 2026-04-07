@@ -16,8 +16,7 @@ export interface Offering {
   category: 'surf' | 'trips' | 'sejours' | 'experiences';
   title: string;
   titleEn?: string;
-  price: string;
-  image: any; // Astro Image metadata object
+  image: any;
   fullDesc: string;
   fullDescEn?: string;
   features: string[];
@@ -26,68 +25,119 @@ export interface Offering {
   durationEn?: string;
   level: string;
   levelEn?: string;
+  priceDisplay: string;
+  packs?: { label: string; price: number }[];
+  tieredPricing?: { guests: string; price: number }[];
 }
 
 export const offerings: Offering[] = [
+  // --- SURF ---
   {
-    id: 'cours-groupe',
+    id: 'cours-collectif',
     category: 'surf',
-    title: 'Cours de surf en groupe',
-    titleEn: 'Group surf lessons',
-    price: '30€',
+    title: 'Cours Collectifs',
+    titleEn: 'Group Lessons',
+    priceDisplay: '30€',
     image: coursGroupe,
-    fullDesc: "Apprenez à surfer dans une ambiance conviviale et détendue (3 personnes ou plus). Tarifs : 1h - 30€ / 6h - 80€ / 12h - 150€.",
-    fullDescEn: "Learn to surf in a friendly and relaxed atmosphere (3 people or more). Prices: 1h - 30€ / 6h - 80€ / 12h - 150€.",
-    features: ["Matériel fourni", "Consignes de sécurité"],
-    featuresEn: ["Equipment provided", "Safety instructions"],
-    duration: "2 heures",
-    durationEn: "2 hours",
+    fullDesc: "Cours collectifs (max 10 personnes). Tarif dégressif à partir de 6 personnes et plus : 25€/pers.",
+    fullDescEn: "Group lessons (max 10 people). Discount for 6+ people: 25€/p.",
+    packs: [
+      { label: "Session 2h", price: 30 },
+      { label: "Pack 6h", price: 80 },
+      { label: "Pack 12h", price: 145 }
+    ],
+    tieredPricing: [
+      { guests: "1-5 pers", price: 30 },
+      { guests: "6+ pers", price: 25 }
+    ],
+    features: ["Max 10 personnes", "Matériel inclus"],
+    featuresEn: ["Max 10 people", "Equipment included"],
+    duration: "2h",
+    durationEn: "2h",
     level: "Tous niveaux",
     levelEn: "All levels"
   },
   {
     id: 'cours-semi-prive',
     category: 'surf',
-    title: 'Cours de surf semi-privé',
-    titleEn: 'Semi-private surf lesson',
-    price: '40€',
+    title: 'Cours Semi-Privé',
+    titleEn: 'Semi-Private Lessons',
+    priceDisplay: '40€',
     image: coursSemiPrive,
-    fullDesc: "Idéal pour les couples ou amis. Tarifs : 1h - 40€ / 6h - 110€ / 12h - 210€.",
-    fullDescEn: "Ideal for couples or friends. Prices: 1h - 40€ / 6h - 110€ / 12h - 210€.",
-    features: ["Accompagnement personnalisé"],
-    featuresEn: ["Personalized coaching"],
-    duration: "2 heures",
-    durationEn: "2 hours",
+    fullDesc: "Cours de surf pour 2 personnes.",
+    fullDescEn: "Surf lessons for 2 people.",
+    packs: [
+      { label: "Session 2h", price: 40 },
+      { label: "Pack 6h", price: 110 },
+      { label: "Pack 12h", price: 200 }
+    ],
+    features: ["2 personnes", "Matériel inclus"],
+    featuresEn: ["2 people", "Equipment included"],
+    duration: "2h",
+    durationEn: "2h",
     level: "Tous niveaux",
     levelEn: "All levels"
   },
   {
     id: 'cours-prive',
     category: 'surf',
-    title: 'Cours de surf privé',
-    titleEn: 'Private surf lesson',
-    price: '50€',
+    title: 'Cours Privé',
+    titleEn: 'Private Lessons',
+    priceDisplay: '50€',
     image: coursPrive,
-    fullDesc: "Le cours privé est la meilleure option pour un apprentissage personnalisé. Tarifs : 1h - 50€ / 6h - 140€ / 12h - 260€.",
-    fullDescEn: "Private lessons are the best option for personalized learning. Prices: 1h - 50€ / 6h - 140€ / 12h - 260€.",
-    features: ["Coaching sur mesure"],
-    featuresEn: ["Tailored coaching"],
-    duration: "2 heures",
-    durationEn: "2 hours",
+    fullDesc: "Cours individuel personnalisé.",
+    fullDescEn: "Individual personalized lesson.",
+    packs: [
+      { label: "Session 2h", price: 50 },
+      { label: "Pack 6h", price: 140 },
+      { label: "Pack 12h", price: 260 }
+    ],
+    features: ["1 personne", "Matériel inclus"],
+    featuresEn: ["1 person", "Equipment included"],
+    duration: "2h",
+    durationEn: "2h",
+    level: "Tous niveaux",
+    levelEn: "All levels"
+  },
+
+  // --- TRIPS ---
+  {
+    id: 'trip-tafedna',
+    category: 'trips',
+    title: 'Surf Trip Tafedna',
+    titleEn: 'Tafedna Surf Trip',
+    priceDisplay: 'À partir de 70€',
+    image: tripImsouane,
+    fullDesc: "Trip d'une journée à Tafedna. Session de surf et thé inclus.",
+    fullDescEn: "Full day trip to Tafedna. Surf session and tea included.",
+    tieredPricing: [
+      { guests: "1 pers", price: 100 },
+      { guests: "2 pers", price: 80 },
+      { guests: "3+ pers", price: 70 }
+    ],
+    features: ["Transport inclus", "Session de surf", "Thé"],
+    featuresEn: ["Transport included", "Surf session", "Tea"],
+    duration: "1 journée",
+    durationEn: "1 day",
     level: "Tous niveaux",
     levelEn: "All levels"
   },
   {
     id: 'trip-imsouane',
     category: 'trips',
-    title: 'Surf Trip à Imsouane',
-    titleEn: 'Surf Trip to Imsouane',
-    price: '75€',
+    title: 'Surf Trip Imsouane',
+    titleEn: 'Imsouane Surf Trip',
+    priceDisplay: 'À partir de 75€',
     image: tripImsouane,
-    fullDesc: "Découvrez Imsouane, réputé pour ses vagues longues. Tarifs : 1 pers - 105€ / 2 pers - 85€ / 3+ pers - 75€.",
-    fullDescEn: "Discover Imsouane, famous for its long waves. Prices: 1 p - 105€ / 2 p - 85€ / 3+ p - 75€.",
-    features: ["Transport inclus", "2 sessions"],
-    featuresEn: ["Transport included", "2 sessions"],
+    fullDesc: "Trip d'une journée à Imsouane.",
+    fullDescEn: "Full day trip to Imsouane.",
+    tieredPricing: [
+      { guests: "1 pers", price: 105 },
+      { guests: "2 pers", price: 85 },
+      { guests: "3+ pers", price: 75 }
+    ],
+    features: ["Transport inclus", "Session de surf"],
+    featuresEn: ["Transport included", "Surf session"],
     duration: "1 journée",
     durationEn: "1 day",
     level: "Tous niveaux",
@@ -96,62 +146,88 @@ export const offerings: Offering[] = [
   {
     id: 'trip-taghazout',
     category: 'trips',
-    title: 'Surf Trip Taghazout (2 Jours)',
-    titleEn: '2-Day Surf Trip Taghazout',
-    price: '190€',
+    title: 'Trip Taghazout (2j)',
+    titleEn: 'Taghazout Trip (2d)',
+    priceDisplay: 'À partir de 190€',
     image: tripTaghazout,
-    fullDesc: "Vivez l'expérience du village de surf le plus célèbre. Tarifs : 2 pers - 220€ / 3+ pers - 190€.",
-    fullDescEn: "Experience the most famous surf village. Prices: 2 p - 220€ / 3+ p - 190€.",
-    features: ["Hébergement 1 nuit", "Transport"],
-    featuresEn: ["Accommodation 1 night", "Transport"],
-    duration: "2 jours / 1 nuit",
-    durationEn: "2 days / 1 night",
-    level: "Intermédiaire",
-    levelEn: "Intermediate"
-  },
-  {
-    id: 'trip-tamraght',
-    category: 'trips',
-    title: 'Surf Trip Tamraght (2 Jours)',
-    titleEn: '2-Day Surf Trip Tamraght',
-    price: '190€',
-    image: tripTamraght,
-    fullDesc: "Village de surf authentique entre montagne et océan. Tarifs : 2 pers - 220€ / 3+ pers - 190€.",
-    fullDescEn: "Authentic surf village between mountains and ocean. Prices: 2 p - 220€ / 3+ p - 190€.",
-    features: ["Hébergement 1 nuit", "Sessions encadrées"],
-    featuresEn: ["Accommodation 1 night", "Coached sessions"],
+    fullDesc: "Trip de 2 jours (1 nuit) en full pack. Minimum 2 personnes.",
+    fullDescEn: "2-day trip (1 night) full pack. Min 2 people.",
+    tieredPricing: [
+      { guests: "2 pers", price: 220 },
+      { guests: "3+ pers", price: 190 }
+    ],
+    features: ["Hébergement (1 nuit)", "Transport inclus", "Full Pack"],
+    featuresEn: ["Accommodation (1 night)", "Transport included", "Full Package"],
     duration: "2 jours / 1 nuit",
     durationEn: "2 days / 1 night",
     level: "Tous niveaux",
     levelEn: "All levels"
   },
   {
+    id: 'trip-tamraght',
+    category: 'trips',
+    title: 'Trip Tamraght (2j)',
+    titleEn: 'Tamraght Trip (2d)',
+    priceDisplay: 'À partir de 190€',
+    image: tripTamraght,
+    fullDesc: "Trip de 2 jours (1 nuit) en full pack. Minimum 2 personnes.",
+    fullDescEn: "2-day trip (1 night) full pack. Min 2 people.",
+    tieredPricing: [
+      { guests: "2 pers", price: 220 },
+      { guests: "3+ pers", price: 190 }
+    ],
+    features: ["Hébergement (1 nuit)", "Transport inclus", "Full Pack"],
+    featuresEn: ["Accommodation (1 night)", "Transport included", "Full Package"],
+    duration: "2 jours / 1 nuit",
+    durationEn: "2 days / 1 night",
+    level: "Tous niveaux",
+    levelEn: "All levels"
+  },
+  {
+    id: 'surf-secret-spot',
+    category: 'trips',
+    title: 'Surf Secret Spot',
+    titleEn: 'Secret Spot Session',
+    priceDisplay: '50€',
+    image: tripImsouane,
+    fullDesc: "Session de surf sur un spot secret avec thé inclus.",
+    fullDescEn: "Surf session on a secret spot with tea included.",
+    features: ["Session de surf", "Thé"],
+    featuresEn: ["Surf session", "Tea"],
+    duration: "Session",
+    durationEn: "Session",
+    level: "Tous niveaux",
+    levelEn: "All levels"
+  },
+
+  // --- SEJOURS ---
+  {
     id: 'sejour-semaine',
     category: 'sejours',
-    title: 'Séjour Surf - La Semaine',
-    titleEn: 'Surf Stay - One Week',
-    price: 'Sur devis',
+    title: 'La Semaine Surf',
+    titleEn: 'The Surf Week',
+    priceDisplay: '490€',
     image: sejourSemaine,
-    fullDesc: "Vivez l'expérience d'un véritable surf camp pendant une semaine.",
-    fullDescEn: "Experience a real surf camp for a week.",
-    features: ["7 nuits", "6 cours", "Matériel"],
-    featuresEn: ["7 nights", "6 lessons", "Gear"],
-    duration: "7 nuits",
-    durationEn: "7 nights",
+    fullDesc: "Séjour de 7 jours incluant l'hébergement à la Surf House, une visite guidée d'Essaouira, 6 cours de surf et la demi-pension (6 jours).",
+    fullDescEn: "7-day stay including Surf House accommodation, Essaouira guided tour, 6 surf lessons and half-board (6 days).",
+    features: ["7 nuits", "6 cours de surf", "Demi-pension (6j)", "Visite Essaouira"],
+    featuresEn: ["7 nights", "6 surf lessons", "Half-board (6d)", "Essaouira Tour"],
+    duration: "7 jours",
+    durationEn: "7 days",
     level: "Tous niveaux",
     levelEn: "All levels"
   },
   {
     id: 'sejour-weekend',
     category: 'sejours',
-    title: 'Séjour Surf - Week-end',
-    titleEn: 'Surf Stay - Weekend Escape',
-    price: 'Sur devis',
+    title: 'Week-end Surf',
+    titleEn: 'Surf Weekend',
+    priceDisplay: '180€',
     image: sejourWeekend,
-    fullDesc: "La formule parfaite pour une escapade courte mais intense.",
-    fullDescEn: "The perfect short but intense getaway.",
-    features: ["2 nuits", "2 cours", "Matériel"],
-    featuresEn: ["2 nights", "2 lessons", "Gear"],
+    fullDesc: "Séjour de 2 nuits incluant 2 cours de surf.",
+    fullDescEn: "2-night stay including 2 surf lessons.",
+    features: ["2 nuits", "2 cours de surf"],
+    featuresEn: ["2 nights", "2 surf lessons"],
     duration: "2 nuits",
     durationEn: "2 nights",
     level: "Tous niveaux",
@@ -160,48 +236,60 @@ export const offerings: Offering[] = [
   {
     id: 'sejour-libre',
     category: 'sejours',
-    title: 'Séjour Surf - Formule Libre',
-    titleEn: 'Surf Stay - Flexible Package',
-    price: 'Sur devis',
+    title: 'Formule Libre',
+    titleEn: 'Flexible Stay',
+    priceDisplay: 'À partir de 80€/j',
     image: sejourSurMesure,
-    fullDesc: "Composez votre séjour à votre rythme.",
-    fullDescEn: "Create your own stay at your own pace.",
-    features: ["Hébergement flexible", "Cours à la demande"],
-    featuresEn: ["Flexible housing", "Lessons on demand"],
+    fullDesc: "Formule à la carte : 90€/jour (nuit, cours et demi-pension). Tarif dégressif à 80€/jour à partir du 4ème jour. Note : Le nombre de cours et de demi-pensions correspond au nombre de nuits moins un.",
+    fullDescEn: "A la carte formula: 90€/day (night, lesson and half-board). Discount to 80€/day from the 4th day. Note: Number of lessons and meals equals number of nights minus one.",
+    features: ["Hébergement", "Cours de surf", "Demi-pension"],
+    featuresEn: ["Accommodation", "Surf lessons", "Half-board"],
     duration: "Sur mesure",
     durationEn: "Custom",
     level: "Tous niveaux",
     levelEn: "All levels"
   },
+
+  // --- EXPERIENCES ---
   {
     id: 'exp-camel',
     category: 'experiences',
     title: 'Camel Ride',
     titleEn: 'Camel Ride',
-    price: '25€',
+    priceDisplay: '15€',
     image: expCamel,
-    fullDesc: "Promenade paisible à dos de dromadaire le long de la plage.",
-    fullDescEn: "Peaceful dromedary ride along the beach.",
-    features: ["Guide local", "Coucher de soleil"],
-    featuresEn: ["Local guide", "Sunset"],
-    duration: "1h30",
-    durationEn: "1h30",
-    level: "Détente",
-    levelEn: "Relaxation"
+    fullDesc: "Balade à dromadaire sur la plage.",
+    fullDescEn: "Camel ride on the beach.",
+    tieredPricing: [
+      { guests: "1 heure", price: 15 },
+      { guests: "2 heures", price: 25 },
+      { guests: "Sunset (1h30)", price: 30 }
+    ],
+    features: ["Balade sur la plage"],
+    featuresEn: ["Beach ride"],
+    duration: "1h - 2h",
+    durationEn: "1h - 2h",
+    level: "Tous niveaux",
+    levelEn: "All levels"
   },
   {
     id: 'exp-horse',
     category: 'experiences',
     title: 'Horse Ride',
     titleEn: 'Horse Ride',
-    price: '35€',
+    priceDisplay: '20€',
     image: expHorse,
-    fullDesc: "Galop sur la plage sauvage de Sidi Kaouki.",
-    fullDescEn: "Gallop on the wild beach of Sidi Kaouki.",
-    features: ["Chevaux arabes-barbes", "Tous niveaux"],
-    featuresEn: ["Arab-Barb horses", "All levels"],
-    duration: "1h30",
-    durationEn: "1h30",
+    fullDesc: "Balade à cheval sur la plage.",
+    fullDescEn: "Horse ride on the beach.",
+    tieredPricing: [
+      { guests: "1 heure", price: 20 },
+      { guests: "2 heures", price: 35 },
+      { guests: "Sunset (1h30)", price: 40 }
+    ],
+    features: ["Balade sur la plage"],
+    featuresEn: ["Beach ride"],
+    duration: "1h - 2h",
+    durationEn: "1h - 2h",
     level: "Tous niveaux",
     levelEn: "All levels"
   },
@@ -210,15 +298,38 @@ export const offerings: Offering[] = [
     category: 'experiences',
     title: 'Quad Adventure',
     titleEn: 'Quad Adventure',
-    price: '45€',
+    priceDisplay: '40€',
     image: expQuad,
-    fullDesc: "Explorez l'arrière-pays entre plage et forêt d'arganiers.",
-    fullDescEn: "Explore the hinterland between beach and argan forest.",
-    features: ["Guide motorisé", "Adrénaline"],
-    featuresEn: ["Motorized guide", "Adrenaline"],
-    duration: "2h",
-    durationEn: "2h",
-    level: "Pas de permis requis",
-    levelEn: "No license required"
-  }
+    fullDesc: "Sortie en quad.",
+    fullDescEn: "Quad outing.",
+    tieredPricing: [
+      { guests: "1 heure", price: 40 },
+      { guests: "2 heures", price: 60 }
+    ],
+    features: ["Sortie Quad"],
+    featuresEn: ["Quad outing"],
+    duration: "1h - 2h",
+    durationEn: "1h - 2h",
+    level: "Tous niveaux",
+    levelEn: "All levels"
+  },
+  {
+    id: 'exp-hammam',
+    category: 'experiences',
+    title: 'Hammam Traditionnel',
+    titleEn: 'Traditional Hammam',
+    priceDisplay: '20€',
+    image: expCamel,
+    fullDesc: "Séance de hammam traditionnel.",
+    fullDescEn: "Traditional hammam session.",
+    tieredPricing: [
+      { guests: "Séance", price: 20 }
+    ],
+    features: ["Gommage au savon noir"],
+    featuresEn: ["Black soap scrub"],
+    duration: "1h",
+    durationEn: "1h",
+    level: "Détente",
+    levelEn: "Relaxation"
+  },
 ];
