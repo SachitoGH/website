@@ -13,7 +13,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     name: "Lili",
-    role: "Co-Fondatrice & Organisation",
-    roleEn: "Co-Founder & Organization",
+    role: "Organisation & Co-Fondatrice",
+    roleEn: "Organization & Co-Founder",
   }
 ];
