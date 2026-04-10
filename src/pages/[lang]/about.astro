@@ -16,8 +16,11 @@ const t = useTranslations(lang);
 
 <Layout title={t('about.meta.title')}>
 
-  <div class="h-56 md:h-80 bg-ocean flex items-center justify-center text-center text-sand px-4">
-    <h1 class="text-4xl md:text-6xl font-serif font-bold">{t('about.hero.title')}</h1>
+  <div class="h-56 md:h-80 bg-ocean flex items-center justify-center text-center text-light px-4">
+    <div>
+      <h1 class="text-4xl md:text-6xl font-serif font-bold">{t('about.hero.title')}</h1>
+      <p class="mt-4 text-base md:text-lg text-light/80 max-w-2xl mx-auto">{t('about.hero.subtitle')}</p>
+    </div>
   </div>
 
   <section class="py-10 px-6 text-center">
