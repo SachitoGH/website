@@ -37,7 +37,7 @@ export const ui = {
     'about.hero.title': 'À propos de nous',
     'about.spirit.title': "Une histoire de passion, d'océan et de partage",
     'about.spirit.p1': "Global Surf est né d'une passion commune pour l'océan, le partage et les rencontres. Salim est originaire de Safi, il est tombé dans le surf très jeune. Champion à trois reprises dans sa jeunesse, il est aujourd'hui professeur de surf certifié et transmet son expérience avec une approche à la fois technique et humaine. Lili a toujours évolué dans l'eau. Ancienne professeure de natation, elle s'est naturellement tournée vers l'océan avant de tomber amoureuse du surf et de l'énergie qu'il procure.",
-    'about.spirit.p2': "Ensemble, nous avons créé Global Surf avec une idée simple : partager ce que l'océan nous a apporté. Confiance en soi, plaisir, connexion à la nature et aux autres. Il y a un an, nous avons commencé cette aventure à Sidi Kaouki. Aujourd'hui, nous proposons des cours de surf, des surf camps et différentes expériences pour découvrir la région. Sidi Kaouki, à seulement 20 minutes d'Essaouira, est un petit village authentique entouré de nature. On y trouve des vagues pour tous les niveaux, des plages sauvages et une atmosphère unique où le temps semble ralentir.",
+    'about.spirit.p2': "Ensemble, nous avons créé Global Surf avec une idée simple : partager ce que l'océan nous a apporté. Confiance en soi, plaisir, connexion à la nature et aux autres. Il y a un an, nous avons commencé cette aventure à Sidi Kaouki. Petit à petit, avec beaucoup d'envie et de travail, l'école a pris forme. Aujourd'hui, nous proposons des cours de surf, des surf camps et différentes expériences pour découvrir la région : balades à cheval ou à chameau, quad, sunset picnic et bien d'autres moments à vivre face à l'océan. Sidi Kaouki, à seulement 20 minutes d'Essaouira, est un petit village authentique entouré de nature. On y trouve des vagues pour tous les niveaux, des plages sauvages et une atmosphère unique où le temps semble ralentir. Global Surf est né ici, et c'est ce petit coin de paradis que nous avons envie de partager.",
     'about.contact.title': "Contactez-nous",
     'about.contact.subtitle': "Une question ? Un projet ? On adore discuter. Écrivez-nous !",
 
@@ -52,6 +52,8 @@ export const ui = {
     // CATEGORY & DETAIL PAGE
     'category.explore': "Explorez nos formules :",
     'category.empty': "Aucune offre disponible pour le moment.",
+    'category.surf.subtitle': "Débutants, intermédiaires ou confirmés : nos cours de surf sont adaptés à tous les niveaux.",
+    'category.sejours.subtitle': "Vivez l'expérience d'un véritable surf camp sur la côte marocaine. Tous les niveaux sont les bienvenus.",
     'detail.about': "À propos",
     'detail.included': "Ce qui est inclus",
     'detail.price': "À partir de",
@@ -152,7 +154,7 @@ export const ui = {
     'about.hero.title': 'About Us',
     'about.spirit.title': "A story of passion, ocean and sharing",
     'about.spirit.p1': "Global Surf was born from a shared passion for the ocean, sharing, and meeting people. Salim is originally from Safi and fell into surfing at a very young age. A three-time champion in his youth, he is now a certified surf instructor and shares his experience with an approach that is both technical and human. Lili has always evolved in the water. A former swimming teacher, she naturally turned to the ocean before falling in love with surfing and the energy it provides.",
-    'about.spirit.p2': "Together, we created Global Surf with a simple idea: to share what the ocean has given us. Self-confidence, fun, connection to nature and others. A year ago, we started this adventure in Sidi Kaouki. Today, we offer surf lessons, surf camps and different experiences to discover the region. Sidi Kaouki, just 20 minutes from Essaouira, is a small authentic village surrounded by nature. You can find waves for all levels, wild beaches and a unique atmosphere where time seems to slow down.",
+    'about.spirit.p2': "Together, we created Global Surf with a simple idea: to share what the ocean has given us. Self-confidence, fun, connection to nature and others. A year ago, we started this adventure in Sidi Kaouki. Little by little, with a lot of drive and hard work, the school took shape. Today, we offer surf lessons, surf camps and different experiences to discover the region: horse and camel rides, quad, sunset picnics and many more moments to live facing the ocean. Sidi Kaouki, just 20 minutes from Essaouira, is a small authentic village surrounded by nature. You can find waves for all levels, wild beaches and a unique atmosphere where time seems to slow down. Global Surf was born here, and this little piece of paradise is what we want to share.",
     'about.contact.title': "Contact Us",
     'about.contact.subtitle': "Any questions? A project? We love to chat. Write to us!",
 
@@ -167,6 +169,8 @@ export const ui = {
     // CATEGORY & DETAIL PAGE
     'category.explore': "Explore our packages:",
     'category.empty': "No offers available at the moment.",
+    'category.surf.subtitle': "Beginners, intermediate or advanced surfers: our surf lessons are designed for all levels.",
+    'category.sejours.subtitle': "Experience the lifestyle of a real surf camp on Morocco's Atlantic coast. All levels are welcome.",
     'detail.about': "About",
     'detail.included': "What's included",
     'detail.price': "From",

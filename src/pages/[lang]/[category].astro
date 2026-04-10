@@ -39,6 +39,12 @@ const categoryHeros: Record<string, ImageMetadata> = {
 const title = categoryNames[category] || category;
 const heroImage = categoryHeros[category];
 
+const categorySubtitles: Record<string, string> = {
+  'surf': t('category.surf.subtitle'),
+  'sejours': t('category.sejours.subtitle'),
+};
+const subtitle = categorySubtitles[category] || '';
+
 // Filtrer les offres pour cette page
 const items = offerings.filter(item => item.category === category);
 ---
@@ -54,8 +60,11 @@ const items = offerings.filter(item => item.category === category);
       loading="eager"
     />
     <div class="absolute inset-0 bg-black/40"></div>
-    <div class="absolute inset-0 flex items-center justify-center text-center text-white">
-      <h1 class="text-4xl md:text-6xl font-serif font-bold">{title}</h1>
+    <div class="absolute inset-0 flex items-center justify-center text-center text-white px-4">
+      <div>
+        <h1 class="text-4xl md:text-6xl font-serif font-bold">{title}</h1>
+        {subtitle && <p class="mt-4 text-base md:text-lg text-white/80 max-w-2xl mx-auto">{subtitle}</p>}
+      </div>
     </div>
   </div>
 
