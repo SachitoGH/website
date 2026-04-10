@@ -72,6 +72,8 @@ export const ui = {
     'reviews.subtitle': "Ce que nos surfeurs disent de nous",
     'reviews.tripadvisor': "Voir sur TripAdvisor",
     'reviews.google': "Voir sur Google",
+    'reviews.readmore': "Lire plus",
+    'reviews.readless': "Lire moins",
 
     // --- BOOKING MODAL ---
     'booking.title': 'Réserver votre session',
@@ -185,6 +187,8 @@ export const ui = {
     'reviews.subtitle': "What our surfers say about us",
     'reviews.tripadvisor': "See on TripAdvisor",
     'reviews.google': "See on Google",
+    'reviews.readmore': "Read more",
+    'reviews.readless': "Read less",
     // --- BOOKING MODAL ---
     'booking.title': 'Book your session',
     'booking.subtitle': 'Leave us your details and dates, we will get back to you shortly to confirm.',

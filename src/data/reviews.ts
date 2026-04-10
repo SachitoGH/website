@@ -1,93 +1,52 @@
 export interface Review {
   author: string;
   text: string;
+  textEn?: string;
   rating: number;
   source?: 'Google' | 'TripAdvisor';
 }
 
 export const reviews: Review[] = [
   {
-    author: "Sarah M.",
-    text: "Une expérience inoubliable ! La surf house est un petit paradis de calme. L'équipe est aux petits soins et les tajines du soir sont incroyables.",
+    author: "Clara L.",
     rating: 5,
-    source: "Google"
+    source: "TripAdvisor",
+    text: "Je recommande vivement le duo de choc de Global Surf Sidi Kaouki, Lili et Salim, à l'écoute et aux petits soins pour notre surf trip ! Surf tous les jours dans un contexte de rêve, matériel au top, ambiance à la cool mêlée au professionnalisme. Prenez contact avec eux si vous voulez progresser en surf et connaître tous les bons plans du coin !",
+    textEn: "I highly recommend the amazing duo at Global Surf Sidi Kaouki, Lili and Salim — so attentive and caring throughout our surf trip! Surfing every day in a dream setting, top-quality gear, relaxed vibes mixed with real professionalism. Reach out to them if you want to progress in surfing and discover all the best spots in the area!",
   },
   {
-    author: "Kevin « The Shark »",
-    text: "J'ai bu plus d'eau que l'océan n'en contient, mais j'ai fini par tenir debout 3 secondes. Le prof a une patience d'ange, même quand je lui ai envoyé ma planche dans les côtes. Désolé encore !",
-    rating: 4,
-    source: "Google"
-  },
-  {
-    author: "Thomas B.",
-    text: "Meilleur spot de Sidi Kaouki. J'ai progressé super vite grâce au coaching vidéo. Les vagues étaient parfaites pour mon niveau intermédiaire.",
+    author: "Jean-Stanislas B.",
     rating: 5,
-    source: "TripAdvisor"
+    source: "TripAdvisor",
+    text: "Vous allez passer un moment en famille, apprendre enfin à vous lever sur votre planche de surf. Parfaite aussi bien pour les adultes que pour les enfants. Les explications sont claires et adaptées à tous les niveaux, le matériel est très bon, ce qui permet de prendre confiance très rapidement. Un souvenir inoubliable, rempli de rires et de belles sensations.",
+    textEn: "You'll have a wonderful family time and finally learn to stand up on a surfboard. Perfect for both adults and children. The explanations are clear and adapted to all levels, the equipment is great, which lets you build confidence quickly. An unforgettable memory full of laughter and amazing sensations.",
   },
   {
-    author: "Marie-Thérèse",
-    text: "Je suis venue pour accompagner mon petit-fils. Je n'ai pas surfé mais le thé à la menthe est le meilleur du Maroc. Par contre, les jeunes font un peu de bruit en rentrant de session, mais ils sont mignons.",
-    rating: 4,
-    source: "Google"
-  },
-  {
-    author: "Julien & Léa",
-    text: "On devait rester 3 jours, on est restés une semaine. Tout est dit. L'ambiance familiale nous a tout de suite mis à l'aise.",
+    author: "Loris B.",
     rating: 5,
-    source: "TripAdvisor"
+    source: "TripAdvisor",
+    text: "J'ai fait du surf pour la première fois de ma vie à Sidi Kaouki, Salim mon moniteur a su me donner les bons conseils pour que je réussisse à me lever sur la planche et profiter de l'océan comme il se doit ! Merci Salim",
+    textEn: "I surfed for the very first time in Sidi Kaouki. Salim, my instructor, gave me exactly the right advice to get me standing on the board and truly enjoying the ocean the way it deserves. Thank you Salim!",
   },
   {
-    author: "Ben (UK)",
-    text: "The surf is great, but let's be honest: I'm only here for the breakfast. I've been dreaming about that honey and those pancakes since I left. 10/10 would eat again.",
+    author: "Jeremie L.",
     rating: 5,
-    source: "Google"
+    source: "TripAdvisor",
+    text: "Salim est présent mais vous laisse faire votre truc. Super coaching, bon pour apprendre à choisir les vagues. A vraiment su s'adapter à nous. La cerise sur le gâteau c'est le sourire non stop. Un joyeux personnage qui fait très bien son job.",
+    textEn: "Salim is there when you need him but lets you do your thing. Great coaching, really helpful for learning to read waves. He genuinely adapted to us. The cherry on top is the non-stop smile — a cheerful guy who does his job brilliantly.",
   },
   {
-    author: "Marc D.",
-    text: "Le matériel est top qualité et les moniteurs sont super pédagogues. Merci à toute l'équipe pour cette semaine de rêve.",
+    author: "Ocean V.",
     rating: 5,
-    source: "Google"
+    source: "TripAdvisor",
+    text: "J'ai eu une expérience incroyable avec Salim. Les cours sont toujours aussi supers, joyeux, intéressants, j'ai appris des manœuvres super rapidement (cutback) et je lis bien la vague maintenant. Merci pour la progression de ouf, on reviendra, on recommande et surtout beaucoup de love pour cette semaine !",
+    textEn: "I had an incredible experience with Salim. The lessons are so great, fun and interesting — I learned manoeuvres super quickly (cutback) and can now properly read waves. Thanks for the insane progression, we'll be back, we highly recommend, and so much love for this week!",
   },
   {
-    author: "Chloé « Pieds Salés »",
-    text: "Points positifs : les vagues, les gens, le roof-top. Point négatif : je n'arrive plus à m'habituer à la vie de bureau depuis mon retour. Ma patronne vous déteste. Merci pour tout !",
+    author: "Lauris D.",
     rating: 5,
-    source: "TripAdvisor"
+    source: "TripAdvisor",
+    text: "Plusieurs cours de surf avec Global Surf, tout était parfait. Je recommande pour la qualité du coaching, l'organisation et la bonne ambiance !",
+    textEn: "Several surf lessons with Global Surf — everything was perfect. I recommend for the quality of the coaching, the organisation and the great atmosphere!",
   },
-  {
-    author: "Sophie L.",
-    text: "Un lieu magique loin du tumulte d'Essaouira. Le rooftop pour le coucher de soleil après la session, c'est juste le bonheur.",
-    rating: 5,
-    source: "Google"
-  },
-  {
-    author: "Jean-Pierre",
-    text: "Le spot est incroyable. J'ai mis 4 étoiles car j'ai perdu mes lunettes de soleil dans un wipe-out mémorable, mais l'équipe n'y est pour rien. Super ambiance !",
-    rating: 4,
-    source: "Google"
-  },
-  {
-    author: "Camille R.",
-    text: "Premier surf trip solo et je ne me suis jamais sentie seule. On rencontre plein de gens sympas à la surf house. Je reviendrai l'année prochaine !",
-    rating: 5,
-    source: "TripAdvisor"
-  },
-  {
-    author: "Lucas P.",
-    text: "Super organisation pour le trip à Imsouane. On a surfé la baie toute la journée. Rapport qualité/prix imbattable.",
-    rating: 5,
-    source: "Google"
-  },
-  {
-    author: "Antoine S.",
-    text: "J'ai essayé de draguer une chèvre sur la plage pendant que j'attendais ma session, elle ne m'a pas calculé. Sinon le surf était top et l'accueil super cool. Je recommande.",
-    rating: 5,
-    source: "Google"
-  },
-  {
-    author: "Famille Martin",
-    text: "Nos ados ont adoré les cours de surf et nous la balade à cheval. C'est l'endroit parfait pour des vacances actives en famille.",
-    rating: 5,
-    source: "TripAdvisor"
-  }
 ];

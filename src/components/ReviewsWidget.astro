@@ -31,11 +31,16 @@ const renderStars = (rating: number) => "★".repeat(rating);
                         {renderStars(review.rating)}
                     </div>
 
-                    <p class="text-stone-600 italic leading-relaxed flex-grow">
+                    <p class="review-text line-clamp-4 text-stone-600 italic leading-relaxed">
                         "{ (lang === 'en' && review.textEn) ? review.textEn : review.text }"
                     </p>
+                    <button class="review-toggle hidden text-left text-terra text-xs font-bold mt-2 hover:text-terra/70 transition-colors"
+                        data-more={t('reviews.readmore')}
+                        data-less={t('reviews.readless')}>
+                        {t('reviews.readmore')}
+                    </button>
 
-                    <div class="mt-6 font-bold text-dark text-sm border-t border-stone-100 pt-3">
+                    <div class="mt-6 font-bold text-dark text-sm border-t border-stone-100 pt-3 mt-auto">
                         - {review.author}
                     </div>
                 </div>
@@ -55,3 +60,17 @@ const renderStars = (rating: number) => "★".repeat(rating);
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('.review-text').forEach(el => {
+    if (el.scrollHeight > el.clientHeight) {
+      const btn = el.nextElementSibling as HTMLElement;
+      btn.classList.remove('hidden');
+      btn.addEventListener('click', () => {
+        const expanded = !el.classList.contains('line-clamp-4');
+        el.classList.toggle('line-clamp-4');
+        btn.textContent = expanded ? btn.dataset.more! : btn.dataset.less!;
+      });
+    }
+  });
+</script>
