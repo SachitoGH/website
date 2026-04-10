@@ -6,8 +6,9 @@ import ReviewsWidget from '../../components/ReviewsWidget.astro';
 import { offerings } from '../../data/offerings';
 import { useTranslations } from '../../i18n/utils';
 
-// Import Hero Image
-import heroAccueil from '../../assets/images/hero-accueil.webp';
+// Import Hero Images
+import heroDesktop from '../../assets/images/hero-accueil-desktop.webp';
+import heroMobile from '../../assets/images/hero-accueil-mobile.webp';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'fr' } }, { params: { lang: 'en' } }];
@@ -23,9 +24,15 @@ const featured = featuredIds.map(id => offerings.find(o => o.id === id)!).filter
   <section class="relative h-screen flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0">
       <Image
-        src={heroAccueil}
+        src={heroMobile}
         alt="Sidi Kaouki Surf"
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover block md:hidden"
+        loading="eager"
+      />
+      <Image
+        src={heroDesktop}
+        alt="Sidi Kaouki Surf"
+        class="w-full h-full object-cover hidden md:block"
         loading="eager"
       />
       <div class="absolute inset-0 bg-gradient-to-b from-dark/30 via-transparent to-dark/60 mix-blend-multiply"></div>
