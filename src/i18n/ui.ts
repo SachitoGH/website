@@ -28,6 +28,9 @@ export const ui = {
     'home.welcome.title': 'BIENVENU.E.S CHEZ GLOBAL SURF',
     'home.welcome.desc': "Au bout de la route, il y a l'océan. À Sidi Kaouki, les vagues, le vent et les grands espaces créent un endroit unique où l'on vient autant pour surfer que pour se sentir bien. Chez Global Surf, nous partageons notre passion pour l'océan à travers des cours de surf, des surf camps et une surf house chaleureuse, à quelques minutes de la plage. Notre approche est simple : apprendre dans la bonne humeur, prendre confiance dans l'eau et profiter pleinement de l'expérience. Que vous veniez pour surfer, vous reposer ou découvrir la région, vous êtes ici chez vous.",
     'home.popular.title': 'Nos formules les plus populaires',
+    'home.isa.label': 'Moniteurs certifiés',
+    'home.isa.org': 'International Surfing Association',
+    'home.isa.desc': "Salim est diplômé et certifié par l'ISA, l'autorité mondiale du surf reconnue par le CIO. Une garantie d'encadrement sérieux, sécurisé et progressif pour tous les niveaux.",
 
     // ABOUT PAGE
     'about.meta.title': 'À propos',
@@ -138,6 +141,9 @@ export const ui = {
     'home.welcome.title': 'Welcome to Global Surf',
     'home.welcome.desc': "At the end of the road, there is the ocean. In Sidi Kaouki, the waves, the wind and the wide open spaces create a unique place where people come as much to surf as to feel good. At Global Surf, we share our passion for the ocean through surf lessons, surf camps and a welcoming surf house just a few minutes from the beach. Our approach is simple: learn in a good atmosphere, build confidence in the water and fully enjoy the experience. Whether you come to surf, relax or discover the region, here you are at home.",
     'home.popular.title': 'Our most popular packages',
+    'home.isa.label': 'Certified instructors',
+    'home.isa.org': 'International Surfing Association',
+    'home.isa.desc': "Salim is certified by the ISA, the world surfing authority recognised by the IOC. A guarantee of serious, safe and progressive coaching for all levels.",
 
     // ABOUT PAGE
     'about.meta.title': 'About',

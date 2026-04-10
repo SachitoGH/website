@@ -15,7 +15,8 @@ const randomReviews = shuffled.slice(0, 3);
 const renderStars = (rating: number) => "★".repeat(rating);
 ---
 
-<section class="py-8 max-w-7xl mx-auto px-4">
+<section class="py-8">
+  <div class="max-w-7xl mx-auto px-4">
     <div class="text-center mb-8">
         <h2 class="text-3xl font-serif text-ocean mb-2">{t('reviews.title')}</h2>
         <p class="text-stone-500 font-light">{t('reviews.subtitle')}</p>
@@ -52,4 +53,5 @@ const renderStars = (rating: number) => "★".repeat(rating);
             </a>
         </div>
     </div>
+  </div>
 </section>

@@ -1,18 +1,19 @@
 ---
+import { Image } from 'astro:assets';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+import insta1 from '../assets/images/insta-globalsurfsidikaouki-1.webp';
+import insta2 from '../assets/images/insta-globalsurfsidikaouki-2.webp';
+import insta3 from '../assets/images/insta-globalsurfsidikaouki-3.webp';
+import insta4 from '../assets/images/insta-globalsurfsidikaouki-4.webp';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const photos = [
-    "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=600",
-    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600",
-    "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=600",
-    "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=600"
-];
+const photos = [insta1, insta2, insta3, insta4];
 ---
 
-<section class="py-10 bg-sand border-t border-stone-200/50">
+<section class="py-10 bg-light border-t border-stone-200/50">
     <div class="max-w-7xl mx-auto px-4">
 
         <div class="text-center mb-8">
@@ -26,10 +27,12 @@ const photos = [
             {photos.map(photo => (
                 <a href="https://www.instagram.com/globalsurfsidikaouki/" target="_blank" class="block relative group overflow-hidden rounded-xl aspect-square shadow-sm hover:shadow-md transition-all duration-300">
                     <div class="absolute inset-0 bg-ocean/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-                    <img
+                    <Image
                         src={photo}
+                        alt="Global Surf Sidi Kaouki"
+                        width={600}
+                        height={600}
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        alt="Instagram Global Surf"
                     />
                 </a>
             ))}

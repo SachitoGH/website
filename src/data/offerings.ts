@@ -11,12 +11,14 @@ import expCamel from '../assets/images/exp-camel-ride.webp';
 import expHorse from '../assets/images/exp-horse-ride.webp';
 import expQuad from '../assets/images/exp-quad.webp';
 
+import type { ImageMetadata } from 'astro';
+
 export interface Offering {
   id: string;
   category: 'surf' | 'trips' | 'sejours' | 'experiences';
   title: string;
   titleEn?: string;
-  image: any;
+  image?: ImageMetadata;
   fullDesc: string;
   fullDescEn?: string;
   features: string[];
@@ -107,7 +109,6 @@ export const offerings: Offering[] = [
     title: 'Surf Trip Tafedna',
     titleEn: 'Tafedna Surf Trip',
     priceDisplay: 'À partir de 70€',
-    image: tripImsouane,
     fullDesc: "Trip d'une journée à Tafedna. Session de surf et thé inclus.",
     fullDescEn: "Full day trip to Tafedna. Surf session and tea included.",
     tieredPricing: [
@@ -189,7 +190,6 @@ export const offerings: Offering[] = [
     title: 'Surf Secret Spot',
     titleEn: 'Secret Spot Session',
     priceDisplay: '50€',
-    image: tripImsouane,
     fullDesc: "Session de surf sur un spot secret avec thé inclus.",
     fullDescEn: "Surf session on a secret spot with tea included.",
     features: ["Session de surf", "Thé"],
@@ -319,7 +319,6 @@ export const offerings: Offering[] = [
     title: 'Hammam Traditionnel',
     titleEn: 'Traditional Hammam',
     priceDisplay: '20€',
-    image: expCamel,
     fullDesc: "Séance de hammam traditionnel.",
     fullDescEn: "Traditional hammam session.",
     tieredPricing: [

@@ -1,11 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import FeaturesGrid from '../../components/FeaturesGrid.astro';
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
 import ReviewsWidget from '../../components/ReviewsWidget.astro';
 import { offerings } from '../../data/offerings';
-import { homeFeatures } from '../../data/features';
 import { useTranslations } from '../../i18n/utils';
 
 // Import Hero Image
@@ -16,8 +14,9 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const t = useTranslations(lang as any);
-const featured = offerings.slice(0, 3);
+const t = useTranslations(lang);
+const featuredIds = ['cours-collectif', 'exp-camel', 'sejour-libre'];
+const featured = featuredIds.map(id => offerings.find(o => o.id === id)!).filter(Boolean);
 ---
 
 <Layout title={t('nav.home')}>
@@ -72,13 +71,11 @@ const featured = offerings.slice(0, 3);
 
   <ReviewsWidget />
 
-  <FeaturesGrid
-    features={homeFeatures.map(f => ({
-      ...f,
-      title: lang === 'en' ? (f.titleEn || f.title) : f.title,
-      description: lang === 'en' ? (f.descriptionEn || f.description) : f.description
-    }))}
-    bgColor="bg-light"
-    iconBgColor="bg-sand/30"
-  />
+  <section class="py-10 bg-light">
+    <div class="max-w-xl mx-auto px-4 text-center">
+      <!-- ISA logo: drop isa-logo.png into /public/ to display it -->
+      <img src="/isa-logo.png" alt="ISA" class="h-20 w-auto object-contain mx-auto mb-4" onerror="this.style.display='none'" />
+      <p class="text-stone-500 font-light leading-relaxed">{t('home.isa.desc')}</p>
+    </div>
+  </section>
 </Layout>

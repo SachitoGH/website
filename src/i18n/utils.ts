@@ -8,8 +8,9 @@ export function getLangFromUrl(url: URL) {
 }
 
 // Fonction pour traduire un texte
-export function useTranslations(lang: keyof typeof ui) {
+export function useTranslations(lang: string | undefined) {
+  const safeLang = (lang && lang in ui) ? lang as keyof typeof ui : defaultLang;
   return function t(key: keyof typeof ui[typeof defaultLang]) {
-    return ui[lang][key] || ui[defaultLang][key];
+    return ui[safeLang][key] || ui[defaultLang][key];
   }
 }

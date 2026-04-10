@@ -16,7 +16,7 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params;
 const { offer } = Astro.props;
-const t = useTranslations(lang as any);
+const t = useTranslations(lang);
 
 const title = lang === 'en' ? (offer.titleEn || offer.title) : offer.title;
 const fullDesc = lang === 'en' ? (offer.fullDescEn || offer.fullDesc) : offer.fullDesc;
@@ -27,14 +27,16 @@ const level = lang === 'en' ? (offer.levelEn || offer.level) : offer.level;
 
 <Layout title={title}>
   <div class="relative h-56 md:h-80 w-full bg-ocean">
-    <Image
-      src={offer.image}
-      class="w-full h-full object-cover"
-      alt={title}
-      width={1920}
-      height={1080}
-      loading="eager"
-    />
+    {offer.image && (
+      <Image
+        src={offer.image}
+        class="w-full h-full object-cover"
+        alt={title}
+        width={1920}
+        height={1080}
+        loading="eager"
+      />
+    )}
     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
     <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 text-white">
       <div class="max-w-7xl mx-auto">
@@ -49,10 +51,7 @@ const level = lang === 'en' ? (offer.levelEn || offer.level) : offer.level;
   <div class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
     <div class="lg:col-span-2 space-y-12">
       <div>
-        <h2 class="text-2xl font-serif text-ocean mb-6 flex items-center">
-          <span class="w-8 h-px bg-terra mr-4"></span>
-          {t('detail.about')}
-        </h2>
+        <h2 class="text-2xl font-serif text-ocean mb-6">{t('detail.about')}</h2>
         <p class="text-stone-600 leading-relaxed text-lg whitespace-pre-line">{fullDesc}</p>
       </div>
 

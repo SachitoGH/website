@@ -1,11 +1,12 @@
 ---
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   title: string;
   priceDisplay: string;
-  image: any;
+  image?: ImageMetadata;
   href: string;
 }
 

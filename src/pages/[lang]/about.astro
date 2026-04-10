@@ -11,12 +11,12 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const t = useTranslations(lang as any);
+const t = useTranslations(lang);
 ---
 
 <Layout title={t('about.meta.title')}>
 
-  <div class="h-48 md:h-64 bg-ocean flex items-center justify-center text-center text-sand px-4">
+  <div class="h-56 md:h-80 bg-ocean flex items-center justify-center text-center text-sand px-4">
     <h1 class="text-4xl md:text-6xl font-serif font-bold">{t('about.hero.title')}</h1>
   </div>
 
@@ -32,9 +32,9 @@ const t = useTranslations(lang as any);
     </div>
   </section>
 
-  <Team />
-
   <InstaFeed />
+
+  <Team />
 
   <FeaturesGrid
     features={contactFeatures.map(f => ({
