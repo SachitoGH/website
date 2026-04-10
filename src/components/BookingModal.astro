@@ -1,17 +1,26 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { offerings } from '../data/offerings';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// Traductions locales pour le calculateur
-const tNights = lang === 'en' ? 'Number of nights' : 'Nombre de nuits';
-const tCalcProg = lang === 'en' ? 'Your program:' : 'Votre programme :';
-const tCalcEst = lang === 'en' ? 'Estimated price:' : 'Prix estimé :';
-const tNightsWord = lang === 'en' ? 'nights' : 'nuits';
-const tLessonsWord = lang === 'en' ? 'lessons' : 'cours';
-const tMealsWord = lang === 'en' ? 'half-boards' : 'demi-pensions';
-const tPerPers = lang === 'en' ? '/ pers' : '/ pers';
+const tNightsWord = t('booking.calc.nights_word');
+const tLessonsWord = t('booking.calc.lessons_word');
+const tMealsWord = t('booking.calc.meals_word');
+
+// Group offerings by category for the interest select
+const categories = ['surf', 'trips', 'sejours', 'experiences'] as const;
+const categoryLabels: Record<string, string> = {
+  surf: t('nav.surf'),
+  trips: t('nav.trips'),
+  sejours: t('nav.stays'),
+  experiences: t('nav.experiences'),
+};
+const offeringsByCategory = categories.map(cat => ({
+  label: categoryLabels[cat],
+  items: offerings.filter(o => o.category === cat),
+}));
 ---
 <div id="booking-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <div class="fixed inset-0 bg-dark/60 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
@@ -73,41 +82,27 @@ const tPerPers = lang === 'en' ? '/ pers' : '/ pers';
                          <label for="interest" class="block text-xs font-bold uppercase tracking-widest text-dark mb-1 ml-1">{t('booking.label.interest')}</label>
                          <select name="interest" id="interest" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-terra transition text-stone-600">
                             <option value="general">{t('booking.interest.general')}</option>
-                            <optgroup label="Surf">
-                              <option value="cours-collectif">Cours Collectifs</option>
-                              <option value="cours-semi-prive">Cours Semi-Privé</option>
-                              <option value="cours-prive">Cours Privé</option>
-                            </optgroup>
-                            <optgroup label="Trips">
-                              <option value="trip-tafedna">Surf Trip Tafedna</option>
-                              <option value="trip-imsouane">Surf Trip Imsouane</option>
-                              <option value="trip-taghazout">Trip Taghazout (2j)</option>
-                              <option value="trip-tamraght">Trip Tamraght (2j)</option>
-                              <option value="surf-secret-spot">Surf Secret Spot</option>
-                            </optgroup>
-                            <optgroup label="Séjours">
-                              <option value="sejour-semaine">La Semaine Surf</option>
-                              <option value="sejour-weekend">Week-end Surf</option>
-                              <option value="sejour-libre">Formule Libre (Sur-mesure)</option>
-                            </optgroup>
-                            <optgroup label="Expériences">
-                              <option value="exp-camel">Camel Ride</option>
-                              <option value="exp-horse">Horse Ride</option>
-                              <option value="exp-quad">Quad Adventure</option>
-                              <option value="exp-hammam">Hammam Traditionnel</option>
-                            </optgroup>
+                            {offeringsByCategory.map(group => (
+                              <optgroup label={group.label}>
+                                {group.items.map(o => (
+                                  <option value={o.id}>
+                                    {lang === 'en' ? (o.titleEn || o.title) : o.title}
+                                  </option>
+                                ))}
+                              </optgroup>
+                            ))}
                         </select>
                     </div>
 
                     <div id="calculator-container" class="hidden bg-ocean/5 border border-ocean/10 p-4 rounded-xl space-y-3">
                         <div>
-                            <label for="nights" class="block text-xs font-bold uppercase tracking-widest text-ocean mb-1 ml-1">{tNights}</label>
+                            <label for="nights" class="block text-xs font-bold uppercase tracking-widest text-ocean mb-1 ml-1">{t('booking.calc.nights')}</label>
                             <input type="number" name="nights" id="nights" min="2" max="30" value="3" class="w-full bg-white border border-stone-200 rounded-lg px-4 py-2 focus:outline-none focus:border-terra transition text-stone-600" />
                         </div>
                         <div class="text-sm text-stone-600 bg-white p-3 rounded-lg border border-stone-100">
-                            <p class="font-medium text-ocean mb-1">{tCalcProg}</p>
+                            <p class="font-medium text-ocean mb-1">{t('booking.calc.program')}</p>
                             <p id="calc-program" class="mb-2">-</p>
-                            <p class="font-medium text-ocean">{tCalcEst} <span id="calc-price" class="text-terra font-bold ml-1">-</span></p>
+                            <p class="font-medium text-ocean">{t('booking.calc.estimated')} <span id="calc-price" class="text-terra font-bold ml-1">-</span></p>
                         </div>
                     </div>
 
@@ -144,7 +139,7 @@ const tPerPers = lang === 'en' ? '/ pers' : '/ pers';
   </div>
 </div>
 
-<script define:vars={{ tNightsWord, tLessonsWord, tMealsWord, tPerPers }}>
+<script define:vars={{ tNightsWord, tLessonsWord, tMealsWord }}>
     document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('booking-modal');
         const backdrop = document.getElementById('modal-backdrop');
@@ -178,7 +173,7 @@ const tPerPers = lang === 'en' ? '/ pers' : '/ pers';
                 let total = n * pricePerDay;
 
                 calcProgram.innerText = `${n} ${tNightsWord}, ${lessons} ${tLessonsWord}, ${lessons} ${tMealsWord}`;
-                calcPrice.innerText = `${total}€ ${tPerPers}`;
+                calcPrice.innerText = `${total}€ / pers`;
             } else {
                 calcContainer.classList.add('hidden');
             }

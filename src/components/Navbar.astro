@@ -13,6 +13,7 @@ const frPath = currentPath.replace(/^\/en/, '/fr');
 const enPath = currentPath.replace(/^\/fr/, '/en');
 
 const links = [
+  { name: t('nav.home'), href: l('/') },
   { name: t('nav.surf'), href: l('/surf') },
   { name: t('nav.trips'), href: l('/trips') },
   { name: t('nav.stays'), href: l('/sejours') },
@@ -35,7 +36,7 @@ const links = [
         />
       </a>
 
-      <div class="hidden md:flex items-center gap-6">
+      <div class="hidden lg:flex items-center gap-6">
         <div class="flex space-x-4 lg:space-x-6">
             {links.map(link => (
             <a href={link.href} class="text-dark hover:text-ocean font-bold text-xs lg:text-sm uppercase tracking-widest transition-colors py-2">
@@ -55,12 +56,16 @@ const links = [
         </a>
       </div>
 
-      <div class="md:hidden flex items-center gap-4">
+      <div class="lg:hidden flex items-center gap-3">
         <div class="flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-dark">
             <a href={frPath} class={`${lang === 'fr' ? 'text-ocean' : 'opacity-60'}`}>FR</a>
             <span class="opacity-30">|</span>
             <a href={enPath} class={`${lang === 'en' ? 'text-ocean' : 'opacity-60'}`}>EN</a>
         </div>
+
+        <a href="#book" data-formula="general" class="js-open-booking bg-terra text-white px-4 py-2 rounded-full font-bold uppercase tracking-widest text-xs shadow-md hover:bg-terra/90 transition-colors">
+          {t('nav.book')}
+        </a>
 
          <button id="menu-toggle" class="group relative text-dark p-2 hover:bg-dark/5 rounded-full transition focus:outline-none w-12 h-12 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 transition-all duration-300 ease-in-out group-[.is-open]:opacity-0 group-[.is-open]:rotate-90 scale-100 absolute">
@@ -117,8 +122,8 @@ const links = [
       }
     });
 
-    // Close menu when clicking a link
-    const links = mobileMenu.querySelectorAll('a');
+    // Close menu when clicking a link (but not booking buttons — the modal handles those)
+    const links = mobileMenu.querySelectorAll('a:not(.js-open-booking)');
     links.forEach(link => {
         link.addEventListener('click', () => {
             menuToggle.classList.remove('is-open');
@@ -139,8 +144,8 @@ const links = [
         const currentScroll = window.scrollY || document.documentElement.scrollTop;
         const diff = currentScroll - lastScroll;
 
-        // Apply logic only on Mobile (< 768px)
-        if (window.innerWidth < 768) {
+        // Apply logic only on Mobile (< 768px) and only when menu is closed
+        if (window.innerWidth < 768 && !menuToggle.classList.contains('is-open')) {
             if (diff > downThreshold && currentScroll > 50) {
                 // Scroll down -> hide navbar
                 navbar.style.transform = 'translateY(-100%)';

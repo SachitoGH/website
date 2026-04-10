@@ -26,7 +26,7 @@ const level = lang === 'en' ? (offer.levelEn || offer.level) : offer.level;
 ---
 
 <Layout title={title}>
-  <div class="relative h-[50vh] md:h-[60vh] w-full bg-ocean">
+  <div class="relative h-56 md:h-80 w-full bg-ocean">
     <Image
       src={offer.image}
       class="w-full h-full object-cover"
@@ -77,7 +77,7 @@ const level = lang === 'en' ? (offer.levelEn || offer.level) : offer.level;
 
           {offer.tieredPricing && (
             <div class="mb-8">
-              <p class="text-[10px] uppercase tracking-widest text-stone-400 font-bold mb-4">Tarifs par personne</p>
+              <p class="text-[10px] uppercase tracking-widest text-stone-400 font-bold mb-4">{t('detail.pricing.tiered')}</p>
               <div class="space-y-3">
                 {offer.tieredPricing.map(tier => (
                   <div class="flex justify-between items-center p-3 rounded-xl bg-sand/20 border border-sand/50">
@@ -91,7 +91,7 @@ const level = lang === 'en' ? (offer.levelEn || offer.level) : offer.level;
 
           {offer.packs && (
             <div class="mb-8">
-              <p class="text-[10px] uppercase tracking-widest text-stone-400 font-bold mb-4">Packs de cours</p>
+              <p class="text-[10px] uppercase tracking-widest text-stone-400 font-bold mb-4">{t('detail.pricing.packs')}</p>
               <div class="space-y-3">
                 {offer.packs.map(pack => (
                   <div class="flex justify-between items-center p-3 rounded-xl bg-ocean/5 border border-ocean/10">
@@ -136,9 +136,7 @@ const level = lang === 'en' ? (offer.levelEn || offer.level) : offer.level;
         {offer.category === 'sejours' && (
           <div class="bg-ocean text-white p-6 rounded-3xl">
             <p class="text-xs opacity-80 leading-relaxed italic">
-              {lang === 'fr'
-                ? "Pour les séjours, nous vous recontacterons pour valider les disponibilités de la Surf House ou de nos partenaires."
-                : "For stays, we will contact you to validate the availability of the Surf House or our partners."}
+              {t('detail.sejours.note')}
             </p>
           </div>
         )}

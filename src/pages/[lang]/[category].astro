@@ -1,14 +1,19 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
 import { offerings } from '../../data/offerings';
 import { useTranslations } from '../../i18n/utils';
 
+import heroSurf from '../../assets/images/hero-surf.webp';
+import heroTrips from '../../assets/images/hero-trips.webp';
+import heroSejours from '../../assets/images/hero-sejours.webp';
+import heroExperiences from '../../assets/images/exp-quad.webp';
+
 export function getStaticPaths() {
-  const categories = ['surf', 'trips', 'sejours', 'experiences'];
+  const categories = [...new Set(offerings.map(o => o.category))];
   const langs = ['fr', 'en'];
 
-  // On génère le croisement de toutes les langues et toutes les catégories
   return langs.flatMap(lang =>
     categories.map(category => ({ params: { lang, category } }))
   );
@@ -17,27 +22,44 @@ export function getStaticPaths() {
 const { lang, category } = Astro.params;
 const t = useTranslations(lang as any);
 
-// Petit dictionnaire pour afficher le "Vrai" nom de la catégorie (réutilisation propre)
-const categoryNames: Record<string, any> = {
+const categoryNames: Record<string, string> = {
   'surf': t('nav.surf'),
   'trips': t('nav.trips'),
   'sejours': t('nav.stays'),
-  'experiences': t('nav.experiences')
+  'experiences': t('nav.experiences'),
+};
+
+const categoryHeros: Record<string, ImageMetadata> = {
+  'surf': heroSurf,
+  'trips': heroTrips,
+  'sejours': heroSejours,
+  'experiences': heroExperiences,
 };
 
 const title = categoryNames[category] || category;
+const heroImage = categoryHeros[category];
 
 // Filtrer les offres pour cette page
 const items = offerings.filter(item => item.category === category);
 ---
 
 <Layout title={title}>
-  <div class="bg-ocean text-sand py-20 px-4 text-center">
-    <h1 class="text-4xl md:text-5xl font-serif font-bold">{title}</h1>
-    <p class="mt-4 opacity-80 max-w-xl mx-auto">{t('category.explore')} "{title}".</p>
+  <div class="relative h-56 md:h-80 w-full bg-ocean">
+    <Image
+      src={heroImage}
+      alt={title}
+      width={1920}
+      height={1080}
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute inset-0 flex items-center justify-center text-center text-white">
+      <h1 class="text-4xl md:text-6xl font-serif font-bold">{title}</h1>
+    </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 py-20">
+  <div class="max-w-7xl mx-auto px-4 py-10">
     {items.length > 0 ? (
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {items.map(item => (

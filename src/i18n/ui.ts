@@ -56,9 +56,12 @@ export const ui = {
     'detail.level': "Niveau",
     'detail.book': "Réserver votre séjour surf",
     'detail.nopayment': "Aucun paiement requis aujourd'hui",
+    'detail.pricing.tiered': "Tarifs par personne",
+    'detail.pricing.packs': "Packs de cours",
+    'detail.sejours.note': "Pour les séjours, nous vous recontacterons pour valider les disponibilités de la Surf House ou de nos partenaires.",
 
     // UI COMPONENTS (Les manquants)
-    'team.title': "L'Équipe",
+    'team.title': "Contact",
     'insta.follow': 'Suivez-nous',
     'card.starting': 'À partir de',
     'card.learnMore': 'En savoir plus',
@@ -105,6 +108,13 @@ export const ui = {
 
     'booking.js.sending': 'Envoi en cours...',
     'booking.js.error': 'Une erreur est survenue, veuillez réessayer.',
+
+    'booking.calc.nights': 'Nombre de nuits',
+    'booking.calc.program': 'Votre programme :',
+    'booking.calc.estimated': 'Prix estimé :',
+    'booking.calc.nights_word': 'nuits',
+    'booking.calc.lessons_word': 'cours',
+    'booking.calc.meals_word': 'demi-pensions',
   },
   en: {
     // NAVBAR
@@ -156,9 +166,12 @@ export const ui = {
     'detail.level': "Level",
     'detail.book': "Book your surf stay",
     'detail.nopayment': "No payment required today",
+    'detail.pricing.tiered': "Rates per person",
+    'detail.pricing.packs': "Course packs",
+    'detail.sejours.note': "For stays, we will contact you to validate the availability of the Surf House or our partners.",
 
     // UI COMPONENTS (Les manquants)
-    'team.title': "The Team",
+    'team.title': "Contact",
     'insta.follow': 'Follow us',
     'card.starting': 'From',
     'card.learnMore': 'Learn more',
@@ -204,5 +217,12 @@ export const ui = {
 
     'booking.js.sending': 'Sending...',
     'booking.js.error': 'An error occurred, please try again.',
+
+    'booking.calc.nights': 'Number of nights',
+    'booking.calc.program': 'Your program:',
+    'booking.calc.estimated': 'Estimated price:',
+    'booking.calc.nights_word': 'nights',
+    'booking.calc.lessons_word': 'lessons',
+    'booking.calc.meals_word': 'half-boards',
   },
 } as const;

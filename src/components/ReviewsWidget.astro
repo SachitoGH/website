@@ -5,22 +5,25 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const randomReviews = [...reviews]
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 3);
+const shuffled = [...reviews];
+for (let i = shuffled.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+}
+const randomReviews = shuffled.slice(0, 3);
 
 const renderStars = (rating: number) => "★".repeat(rating);
 ---
 
-<section class="py-12 max-w-7xl mx-auto px-4">
-    <div class="text-center mb-12">
-        <h2 class="text-2xl font-serif text-ocean mb-4">{t('reviews.title')}</h2>
-        <p class="text-dark/60">{t('reviews.subtitle')}</p>
+<section class="py-8 max-w-7xl mx-auto px-4">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-serif text-ocean mb-2">{t('reviews.title')}</h2>
+        <p class="text-stone-500 font-light">{t('reviews.subtitle')}</p>
     </div>
 
     <div class="flex flex-col items-center">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 w-full">
             {randomReviews.map((review) => (
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100/50 flex flex-col h-full">
                     <div class="text-yellow-400 text-sm mb-3 tracking-widest">

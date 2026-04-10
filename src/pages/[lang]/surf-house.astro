@@ -20,12 +20,14 @@ const gallery = [house1, house2, house3];
 ---
 
 <Layout title={t('house.meta.title')}>
-  <div class="bg-ocean text-sand py-20 px-4 text-center">
-    <h1 class="text-4xl md:text-5xl font-serif font-bold">{t('house.hero.title')}</h1>
-    <p class="mt-4 opacity-80 max-w-xl mx-auto font-light">{t('house.hero.desc')}</p>
+  <div class="h-48 md:h-64 bg-ocean flex items-center justify-center text-center text-sand px-4">
+    <div>
+      <h1 class="text-4xl md:text-6xl font-serif font-bold">{t('house.hero.title')}</h1>
+      <p class="mt-4 opacity-80 max-w-xl mx-auto font-light">{t('house.hero.desc')}</p>
+    </div>
   </div>
 
-  <section class="py-16">
+  <section class="py-8">
     <div class="max-w-7xl mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {gallery.map((img) => (
@@ -43,11 +45,19 @@ const gallery = [house1, house2, house3];
     </div>
   </section>
 
-  <section class="py-24 bg-light">
+  <section class="py-10 bg-light">
     <div class="max-w-4xl mx-auto px-4 text-center">
         <h2 class="text-3xl font-serif text-ocean mb-8">{t('house.main.title')}</h2>
         <p class="text-lg text-stone-600 leading-relaxed font-light mb-6">{t('house.main.p1')}</p>
-        <p class="text-lg text-stone-600 leading-relaxed font-light">{t('house.main.p2')}</p>
+        <p class="text-lg text-stone-600 leading-relaxed font-light mb-10">{t('house.main.p2')}</p>
+        <a
+          href="#book"
+          data-formula="sejour-libre"
+          class="js-open-booking bg-terra hover:bg-terra/90 text-white px-8 py-4 rounded-full text-lg font-medium transition duration-300 inline-block shadow-lg hover:shadow-xl hover:-translate-y-1"
+        >
+          {t('detail.book')}
+        </a>
+        <p class="text-xs text-stone-400 mt-4 uppercase tracking-wider">{t('detail.nopayment')}</p>
     </div>
   </section>
 
