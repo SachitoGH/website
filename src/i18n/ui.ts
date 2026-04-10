@@ -25,7 +25,7 @@ export const ui = {
     'home.hero.location': 'Maroc • Sidi Kaouki',
     'home.hero.title': 'Global Surf',
     'home.hero.book': 'Réserver votre session',
-    'home.welcome.title': 'BIENVENU.E.S CHEZ GLOBAL SURF',
+    'home.welcome.title': 'Bienvenue chez Global Surf',
     'home.welcome.desc': "Au bout de la route, il y a l'océan. À Sidi Kaouki, les vagues, le vent et les grands espaces créent un endroit unique où l'on vient autant pour surfer que pour se sentir bien. Chez Global Surf, nous partageons notre passion pour l'océan à travers des cours de surf, des surf camps et une surf house chaleureuse, à quelques minutes de la plage. Notre approche est simple : apprendre dans la bonne humeur, prendre confiance dans l'eau et profiter pleinement de l'expérience. Que vous veniez pour surfer, vous reposer ou découvrir la région, vous êtes ici chez vous.",
     'home.popular.title': 'Nos formules les plus populaires',
     'home.isa.label': 'Moniteurs certifiés',
