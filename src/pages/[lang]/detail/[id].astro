@@ -19,6 +19,7 @@ const { offer } = Astro.props;
 const t = useTranslations(lang);
 
 const title = lang === 'en' ? (offer.titleEn || offer.title) : offer.title;
+const bookKey = `detail.book.${offer.category}` as Parameters<typeof t>[0];
 const fullDesc = lang === 'en' ? (offer.fullDescEn || offer.fullDesc) : offer.fullDesc;
 const features = lang === 'en' ? (offer.featuresEn || offer.features) : offer.features;
 const duration = lang === 'en' ? (offer.durationEn || offer.duration) : offer.duration;
@@ -124,7 +125,7 @@ const level = lang === 'en' ? (offer.levelEn || offer.level) : offer.level;
             data-formula={offer.id}
             class="js-open-booking w-full bg-terra hover:bg-terra-dark text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-terra/20 hover:shadow-xl hover:-translate-y-0.5"
           >
-            {t('detail.book')}
+            {t(bookKey)}
           </button>
 
           <p class="text-center text-[10px] text-stone-400 mt-4 uppercase tracking-wider">
